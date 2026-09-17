@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="/my-favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/my-favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/my-favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/my-favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Cay Si" />
+    <link rel="manifest" href="/my-favicon/site.webmanifest" />
+
+    <title>Hải Sản Cây Si</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Cây Si</div>
+
+        <!-- Nút Hamburger cho Mobile -->
+        <button class="menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Container chứa Menu và các nút (sẽ trượt ra trên mobile) -->
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="#" data-i18n="navHome">Home</a>
+                <a href="#" data-i18n="navAbout">About</a>
+                <a href="#" data-i18n="navMenu">Menu</a>
+                <a href="#" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Language Switcher -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                    <span class="divider">|</span>
+                    <button class="lang-btn" data-lang="vi" onclick="setLanguage('vi')">VI</button>
+                </div>
+
+                <a href="#book" class="btn-primary" data-i18n="bookBtn">Book a Table</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero reveal" ID="hero">
+            <div class="hero-content">
+                <h1 data-i18n="heroTitle">HẢI SẢN CÂY SI VŨNG TÀU</h1>
+                <p data-i18n="heroDesc">Tươi sống, chế biến chuyên nghiệp và phục vụ trực tiếp từ đại dương đến đĩa của
+                    bạn. Trải nghiệm hương vị tôn vinh biển cả trong từng miếng cắn.</p>
+                <div class="hero-actions">
+                    <a href="#book" class="btn-primary" data-i18n="bookBtn">ĐẶT BÀN</a>
+                    <a href="#menu" class="btn-outline" data-i18n="exploreBtn">XEM THỰC ĐƠN</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about section-padding reveal" id="about">
+            <!-- Phần text phía trên -->
+            <div class="about-header">
+                <div class="about-title-wrapper">
+                    <span class="subtitle" data-i18n="aboutSubtitle">ABOUT US</span>
+                    <h2 data-i18n="aboutTitle">FLAVORFUL CREATIONS<br>EVERY PLATE</h2>
+                </div>
+                <div class="about-desc-wrapper">
+                    <p data-i18n="aboutDesc1">At Caysi, we bring the freshest seafood from ocean to table. Our passion
+                        is simple: to serve dishes that celebrate the flavors of the sea, crafted with care, quality
+                        ingredients, and culinary expertise. Every day, our chefs select the finest catches, creating
+                        meals that are fresh, flavorful, and unforgettable. From classic favorites to signature
+                        creations, we combine tradition and innovation to deliver a dining experience that delights
+                        every sense.</p>
+                    <p data-i18n="aboutDesc2">Whether you're joining us for a casual meal, a special occasion, or to
+                        savor the freshest seafood in town, we promise a journey of taste, freshness, and ocean-inspired
+                        excellence.</p>
+                </div>
+            </div>
+
+            <!-- Phần lưới hình ảnh phía dưới -->
+            <div class="about-gallery">
+                <!-- Cột trái: Ảnh to -->
+                <div class="gallery-left">
+                    <img src="https://images.unsplash.com/photo-1654922207993-2952fec328ae?q=80&w=774"
+                        alt="Chef preparing fish">
+                </div>
+
+                <!-- Cột phải: Lưới 2x2 -->
+                <div class="gallery-right">
+                    <img src="https://images.unsplash.com/photo-1627900429100-3ed333915540" alt="Cooking process"
+                        class="grid-img">
+
+                    <div class="stats-box gold-bg">
+                        <h2>90%</h2>
+                        <p data-i18n="travellerSearch">TRAVELLER<br>SEARCH</p>
+                    </div>
+
+                    <div class="stats-box white-bg">
+                        <h2><span id="dynamic-years">6</span>+</h2>
+                        <p data-i18n="yearsText">YEARS</p>
+                    </div>
+
+                    <img src="https://images.unsplash.com/photo-1662982692115-743f9e716b98" alt="Plating food"
+                        class="grid-img">
+                </div>
+            </div>
+        </section>
+        <!-- Full Image Section -->
+        <section class="full-image reveal">
+            <img src="/assets/kingcrabsection.png" alt="Fresh Seafood Signature">
+        </section>
+
+        <!-- Menu Categories -->
+        <section class="categories section-padding reveal">
+            <p class="subtitle" data-i18n="menuSubtitle">Menu nhà hàng</p>
+            <h2 data-i18n="menuDescription"> NHÀ HÀNG CỦA CHÚNG TÔI CUNG CẤP NHIỀU NGUYÊN LIỆU CHẤT LƯỢNG CAO, CHẾ TẠO
+                RA NHIỀU MÓN ĂN ĐẦY HƯƠNG VỊ ĐẦY ĐỦ.</h2>
+            <div class="grid-3">
+                <div class="category-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?q=80&w=1548');">
+                    <h3>HẢI THEO MÙA &rarr;</h3>
+                </div>
+                <div class="category-card"
+                    style="background-image: url('https://plus.unsplash.com/premium_photo-1694787534229-e8c7d8ed5db1');">
+                    <h3>BÀO NGƯ HÀU &rarr;</h3>
+                </div>
+                <div class="category-card empty-card">
+                    <h3>XEM TOÀN BỘ MENU &rarr;</h3>
+                    <p>Khám phá trọn bộ các món hải sản tươi ngon được tuyển chọn kỹ lưỡng dành riêng cho bạn.</p>
+                </div>
+                <div class="category-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1510130387422-82bed34b37e9');">
+                    <h3>CÁC MÓN CÁ &rarr;</h3>
+                </div>
+                <div class="category-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1511543865714-5a5a5ce51a94');">
+                    <h3>CUA GHẸ &rarr;</h3>
+                </div>
+                <div class="category-card"
+                    style="background-image: url('https://images.unsplash.com/photo-1605800226723-4aeea545fc3d');">
+                    <h3>NGHÊU - SÒ - ỐC &rarr;</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authentic Dishes Gallery -->
+        <section class="gallery section-padding reveal">
+            <h2>CÁC MÓN ĂN ĐẶC SẮC</h2>
+            <div class="gallery-grid">
+                <img src="https://plus.unsplash.com/premium_photo-1726880414804-1d61f5737b9e" alt="Lobster">
+                <div class="gallery-text">
+                    <h3>VỊ NGON TRONG TỪNG MIẾNG CẮN</h3>
+                    <p>Chúng tôi tự hào mang đến cho bạn trải nghiệm ẩm thực chân thật nhất từ đại dương, với chất lượng
+                        không thể bàn cãi.</p>
+                </div>
+                <img src="https://plus.unsplash.com/premium_photo-1719530305720-6d38151dafac" alt="Paella">
+                <img src="https://images.unsplash.com/photo-1608135227059-95aacee01035" alt="Mussels">
+                <img src="https://images.unsplash.com/photo-1684591442558-860786985dd4" alt="Shrimp Curry">
+                <img src="https://images.unsplash.com/photo-1576330383200-2bf325cfec52" alt="Shrimp Curry">
+            </div>
+        </section>
+
+        <!-- Menu List -->
+        <section class="menu-list section-padding reveal" id="menu">
+            <div class="menu-intro">
+                <h2>CÁC MÓN HẢI SẢN PHỔ BIẾN NHẤT</h2>
+                <p>Những món ăn được gọi nhiều nhất của chúng tôi, được khách hàng yêu thích bởi hương vị tuyệt vời và
+                    khẩu phần ăn đầy đặn.</p>
+                <a href="#" class="btn-outline">XEM TOÀN BỘ THỰC ĐƠN</a>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h4>TÔM HÙM THERMIDOR</h4>
+                    </div>
+                    <p>Món ăn cổ điển của Pháp với thịt tôm hùm béo ngậy, mềm mịn được nướng trong vỏ.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h4>GHẸ TỎI XÀ PHONG</h4>
+                    </div>
+                    <p>Món ăn truyền thống với ghẹ to, được nấu với xà phong và các loại gia vị đặc trưng.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h4>PAELLA HẢI SẢN</h4>
+                    </div>
+                    <p>Món cơm truyền thống của Tây Ban Nha được nướng với tôm, sò điệp, ốc và mực.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h4>TÔM NƯỚNG MỌI</h4>
+                    </div>
+                    <p>Món tôm nướng với vỏ giòn, được phục vụ kèm rau củ đã nướng.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h4>CUA LỘT</h4>
+                    </div>
+                    <p>Món cua lột với hương vị thơm ngon và thịt cua mềm mịn.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials section-padding reveal">
+            <p class="subtitle">ĐÁNH GIÁ</p>
+            <h2>KHÁCH HÀNG NÓI GÌ VỀ CHÚNG TÔI</h2>
+            <div class="testi-grid">
+                <div class="testi-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Một trong những trải nghiệm hải sản tốt nhất mà tôi từng có. Paella là món không thể bỏ qua.
+                        Chúng tôi sẽ quay lại!"</p>
+                    <h4>ANH MINH</h4>
+                </div>
+                <div class="testi-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Một trong những trải nghiệm hải sản tốt nhất mà tôi từng có. Paella là món không thể bỏ qua.
+                        Chúng tôi sẽ quay lại!"</p>
+                    <h4>CHỊ THẢO</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Large Typography Banner -->
+        <section class="banner section-padding reveal">
+            <h2>
+                CHÚNG TÔI CHỈ MUA SẢN PHẨM TỪ
+                <span class="inline-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1606850780554-b55ea4dd0b70');"></span>
+                NHÀ CUNG CẤP UY TÍN TẠI VŨNG TÀU, ĐẢM BẢO
+                <span class="inline-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1');"></span>
+                CHẤT LƯỢNG CAO NHẤT CHO
+                <span class="inline-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1565557623262-b51c2513a641');"></span>
+                TỪNG MÓN ĂN.
+            </h2>
+        </section>
+
+        <section class="restaurant-space section-padding reveal">
+            <div class="space-header">
+                <div>
+                    <p class="subtitle">KHÔNG GIAN</p>
+                    <h2>KHÔNG GIAN NHÀ HÀNG</h2>
+                </div>
+            </div>
+
+            <div class="space-gallery">
+                <div class="space-image space-image-large">
+                    <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1200&q=85"
+                        alt="Không gian nhà hàng">
+                </div>
+
+                <div class="space-image">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=85"
+                        alt="Không gian bên trong nhà hàng">
+                </div>
+
+                <div class="space-image">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=85"
+                        alt="Bàn ăn nhà hàng">
+                </div>
+
+                <div class="space-image">
+                    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=85"
+                        alt="Khu vực bàn ăn">
+                </div>
+
+                <div class="space-image">
+                    <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=85"
+                        alt="Không gian nhà hàng sang trọng">
+                </div>
+            </div>
+        </section>
+
+        <section class="contact section-padding reveal" id="contact">
+            <div class="contact-inner">
+
+                <div class="contact-heading">
+                    <h2>LIÊN HỆ<br>ĐẶT BÀN</h2>
+                </div>
+
+                <div class="contact-info">
+
+                    <div class="contact-item">
+                        <span>ĐỊA CHỈ</span>
+                        <p>
+                           Số 4 Lê Hồng Phong Nối Dài, Vũng Tàu, Việt Nam
+                        </p>
+                    </div>
+
+                    <div class="contact-item">
+                        <span>ĐIỆN THOẠI</span>
+                        <a href="tel:0933880668">
+                            0933 880 668
+                        </a>
+                    </div>
+
+                    <div class="contact-item">
+                        <span>ZALO</span>
+                        <a href="https://zalo.me/0933880668" target="_blank">
+                            0933 880 668
+                        </a>
+                    </div>
+
+                    <div class="contact-item">
+                        <span>FACEBOOK</span>
+                        <a href="https://www.facebook.com/HaiSanTuoiSongVungTauCaySiQuan/" target="_blank"
+                            rel="noopener noreferrer">
+                            Hải Sản Tươi Sống Vũng Tàu Cây Si Quân
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <div class="floating-contact">
+
+    <!-- Phone -->
+    <a
+        href="tel:0933880668"
+        class="floating-contact-btn phone"
+        aria-label="Gọi điện thoại"
+    >
+        <span class="floating-icon">☎</span>
+        <span class="floating-text">0933 880 668</span>
+    </a>
+
+    <!-- Zalo -->
+    <a
+        href="https://zalo.me/0933880668"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="floating-contact-btn zalo"
+        aria-label="Liên hệ Zalo"
+    >
+        <span class="floating-icon">Z</span>
+        <span class="floating-text">Zalo</span>
+    </a>
+
+    <!-- Facebook -->
+    <a
+        href="https://www.facebook.com/HaiSanTuoiSongVungTauCaySiQuan/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="floating-contact-btn facebook"
+        aria-label="Facebook"
+    >
+        <span class="floating-icon">f</span>
+        <span class="floating-text">Facebook</span>
+    </a>
+
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer reveal">
+        <div class="footer-top">
+            <div class="footer-logo">Caysi</div>
+            <div class="footer-links">
+                <a href="#" data-i18n="navHome">Home</a>
+                <a href="#" data-i18n="navAbout">About</a>
+                <a href="#" data-i18n="navMenu">Menu</a>
+                <a href="#" data-i18n="navContact">Contact</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Caysi Seafood Restaurant. All rights reserved.</p>
+            <div class="socials">
+                <span>FB</span>
+                <span>IG</span>
+                <span>TW</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
