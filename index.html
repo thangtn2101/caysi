@@ -12,7 +12,10 @@
     <meta name="apple-mobile-web-app-title" content="Cay Si" />
     <link rel="manifest" href="my-favicon/site.webmanifest" />
 
-    <title>Hải Sản Cây Si</title>
+    <meta name="theme-color" content="#f3f8f7">\n
+    <meta name="description"
+        content="Fresh live seafood and ocean-to-table dining at Hải Sản Cây Si, Vũng Tàu, Vietnam.">\n <title>Hải Sản
+        Cây Si — Ocean to Table</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -37,10 +40,10 @@
         <!-- Container chứa Menu và các nút (sẽ trượt ra trên mobile) -->
         <div class="nav-container">
             <nav class="nav-links">
-                <a href="#" data-i18n="navHome">Home</a>
-                <a href="#" data-i18n="navAbout">About</a>
+                <a href="#hero" data-i18n="navHome">Home</a>
+                <a href="#about" data-i18n="navAbout">About</a>
                 <a href="#" data-i18n="navMenu">Menu</a>
-                <a href="#" data-i18n="navContact">Contact</a>
+                <a href="#contact" data-i18n="navContact">Contact</a>
             </nav>
 
             <div class="header-actions">
@@ -51,21 +54,65 @@
                     <button class="lang-btn" data-lang="vi" onclick="setLanguage('vi')">VI</button>
                 </div>
 
-                <a href="#book" class="btn-primary" data-i18n="bookBtn">Book a Table</a>
+                <a href="#contact" class="btn-primary" data-i18n="bookBtn">Book a Table</a>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="hero reveal" ID="hero">
-            <div class="hero-content">
-                <h1 data-i18n="heroTitle">HẢI SẢN CÂY SI VŨNG TÀU</h1>
-                <p data-i18n="heroDesc">Tươi sống, chế biến chuyên nghiệp và phục vụ trực tiếp từ đại dương đến đĩa của
-                    bạn. Trải nghiệm hương vị tôn vinh biển cả trong từng miếng cắn.</p>
+        <!-- Cinematic coastal-luxury hero -->
+        <section class="hero hero-luxury reveal" id="hero" aria-labelledby="hero-title">
+            <div class="hero-atmosphere" aria-hidden="true">
+                <div class="hero-sun-glow"></div>
+                <div class="hero-waterline"></div>
+                <div class="hero-grain"></div>
+            </div>
+
+            <div class="hero-copy">
+                <p class="hero-eyebrow"><span></span> VŨNG TÀU · VIETNAM <span></span></p>
+                <h1 id="hero-title">
+                    <em>Cây Si</em><br>
+                    Quán
+                </h1>
+                <p class="hero-description" data-i18n="heroDesc">Chuyên hải sản tươi sống. Cơm lẩu nướng. Cơm Khách đoàn liên hoan sinh nhật</p>
                 <div class="hero-actions">
-                    <a href="#book" class="btn-primary" data-i18n="bookBtn">ĐẶT BÀN</a>
-                    <a href="#menu" class="btn-outline" data-i18n="exploreBtn">XEM THỰC ĐƠN</a>
+                    <a href="#contact" class="btn-primary" data-i18n="bookBtn">ĐẶT BÀN <span
+                            aria-hidden="true">↗</span></a>
+                    <a href="#menu" class="btn-outline hero-menu" data-i18n="exploreBtn">XEM THỰC ĐƠN <span
+                            aria-hidden="true">→</span></a>
+                </div>
+                <div class="hero-footnote">
+                    <span class="hero-footnote-line"></span>
+                    <span>HẢI SẢN TƯƠI MỖI NGÀY</span>
+                    <span class="hero-footnote-dot">·</span>
+                    <span>TỪ BÌNH DÂN ĐẾN CAO CẤP</span>
+                </div>
+            </div>
+
+            <div class="hero-art" aria-label="A freshly prepared seafood platter">
+                <div class="hero-art-orbit orbit-one"></div>
+                <div class="hero-art-orbit orbit-two"></div>
+                <div class="hero-art-glow"></div>
+                <div class="hero-art-index"><span>01</span> / THE DAILY CATCH</div>
+                <figure class="hero-seafood">
+                    <img src="https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=1300&q=90"
+                        alt="Freshly prepared premium seafood served on ice" fetchpriority="high">
+                </figure>
+                <div class="hero-stamp" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                        <defs>
+                            <path id="stamp-circle" d="M50,50 m-35,0 a35,35 0 1,1 70,0 a35,35 0 1,1 -70,0" />
+                        </defs>
+                        <text>
+                            <textPath href="#stamp-circle">FRESH FROM THE SEA · CÂY SI · </textPath>
+                        </text>
+                        <path d="M50 32l4.8 12.2L68 45l-10 8.2 3.2 13L50 59l-11.2 7.2 3.2-13L32 45l13.2-.8z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <div class="hero-floating-note note-lime" aria-hidden="true"><span>✳</span></div>
+                <div class="hero-floating-note note-chili" aria-hidden="true"><span>〰</span></div>
+                <div class="hero-image-caption"><span class="caption-rule"></span><span>THE ART OF FRESHNESS</span>
                 </div>
             </div>
         </section>
@@ -96,32 +143,33 @@
                 <!-- Cột trái: Ảnh to -->
                 <div class="gallery-left">
                     <img src="https://images.unsplash.com/photo-1654922207993-2952fec328ae?q=80&w=774"
-                        alt="Chef preparing fish">
+                        alt="Chef preparing fish" loading="lazy" decoding="async">
                 </div>
 
                 <!-- Cột phải: Lưới 2x2 -->
                 <div class="gallery-right">
                     <img src="https://images.unsplash.com/photo-1627900429100-3ed333915540" alt="Cooking process"
-                        class="grid-img">
+                        class="grid-img" loading="lazy" decoding="async">
 
                     <div class="stats-box gold-bg">
                         <h2>90%</h2>
                         <p data-i18n="travellerSearch">TRAVELLER<br>SEARCH</p>
                     </div>
 
-                    <div class="stats-box white-bg">
+                    <div class="stats-box gold-bg">
                         <h2><span id="dynamic-years">6</span>+</h2>
                         <p data-i18n="yearsText">YEARS</p>
                     </div>
 
                     <img src="https://images.unsplash.com/photo-1662982692115-743f9e716b98" alt="Plating food"
-                        class="grid-img">
+                        class="grid-img" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
         <!-- Full Image Section -->
         <section class="full-image reveal">
-            <img src="assets/kingcrabsection.png" alt="Fresh King Crab" class="full-image-img">
+            <img src="assets/kingcrabsection.png" alt="Fresh King Crab" class="full-image-img" loading="lazy"
+                decoding="async">
         </section>
 
         <!-- Menu Categories -->
@@ -161,16 +209,21 @@
         <section class="gallery section-padding reveal">
             <h2>CÁC MÓN ĂN ĐẶC SẮC</h2>
             <div class="gallery-grid">
-                <img src="https://plus.unsplash.com/premium_photo-1726880414804-1d61f5737b9e" alt="Lobster">
+                <img src="https://plus.unsplash.com/premium_photo-1726880414804-1d61f5737b9e" alt="Lobster"
+                    loading="lazy" decoding="async">
                 <div class="gallery-text">
                     <h3>VỊ NGON TRONG TỪNG MIẾNG CẮN</h3>
                     <p>Chúng tôi tự hào mang đến cho bạn trải nghiệm ẩm thực chân thật nhất từ đại dương, với chất lượng
                         không thể bàn cãi.</p>
                 </div>
-                <img src="https://plus.unsplash.com/premium_photo-1719530305720-6d38151dafac" alt="Paella">
-                <img src="https://images.unsplash.com/photo-1608135227059-95aacee01035" alt="Mussels">
-                <img src="https://images.unsplash.com/photo-1684591442558-860786985dd4" alt="Shrimp Curry">
-                <img src="https://images.unsplash.com/photo-1576330383200-2bf325cfec52" alt="Shrimp Curry">
+                <img src="https://plus.unsplash.com/premium_photo-1719530305720-6d38151dafac" alt="Paella"
+                    loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1608135227059-95aacee01035" alt="Mussels" loading="lazy"
+                    decoding="async">
+                <img src="https://images.unsplash.com/photo-1684591442558-860786985dd4" alt="Shrimp Curry"
+                    loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1576330383200-2bf325cfec52" alt="Shrimp Curry"
+                    loading="lazy" decoding="async">
             </div>
         </section>
 
@@ -263,27 +316,27 @@
             <div class="space-gallery">
                 <div class="space-image space-image-large">
                     <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1200&q=85"
-                        alt="Không gian nhà hàng">
+                        alt="Không gian nhà hàng" loading="lazy" decoding="async">
                 </div>
 
                 <div class="space-image">
                     <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=85"
-                        alt="Không gian bên trong nhà hàng">
+                        alt="Không gian bên trong nhà hàng" loading="lazy" decoding="async">
                 </div>
 
                 <div class="space-image">
                     <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=85"
-                        alt="Bàn ăn nhà hàng">
+                        alt="Bàn ăn nhà hàng" loading="lazy" decoding="async">
                 </div>
 
                 <div class="space-image">
                     <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=85"
-                        alt="Khu vực bàn ăn">
+                        alt="Khu vực bàn ăn" loading="lazy" decoding="async">
                 </div>
 
                 <div class="space-image">
                     <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=85"
-                        alt="Không gian nhà hàng sang trọng">
+                        alt="Không gian nhà hàng sang trọng" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -300,7 +353,7 @@
                     <div class="contact-item">
                         <span>ĐỊA CHỈ</span>
                         <p>
-                           Số 4 Lê Hồng Phong Nối Dài, Vũng Tàu, Việt Nam
+                            Số 4 Lê Hồng Phong Nối Dài, Vũng Tàu, Việt Nam
                         </p>
                     </div>
 
@@ -333,41 +386,27 @@
 
         <div class="floating-contact">
 
-    <!-- Phone -->
-    <a
-        href="tel:0933880668"
-        class="floating-contact-btn phone"
-        aria-label="Gọi điện thoại"
-    >
-        <span class="floating-icon">☎</span>
-        <span class="floating-text">0933 880 668</span>
-    </a>
+            <!-- Phone -->
+            <a href="tel:0933880668" class="floating-contact-btn phone" aria-label="Gọi điện thoại">
+                <span class="floating-icon">☎</span>
+                <span class="floating-text">0933 880 668</span>
+            </a>
 
-    <!-- Zalo -->
-    <a
-        href="https://zalo.me/0933880668"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="floating-contact-btn zalo"
-        aria-label="Liên hệ Zalo"
-    >
-        <span class="floating-icon">Z</span>
-        <span class="floating-text">Zalo</span>
-    </a>
+            <!-- Zalo -->
+            <a href="https://zalo.me/0933880668" target="_blank" rel="noopener noreferrer"
+                class="floating-contact-btn zalo" aria-label="Liên hệ Zalo">
+                <span class="floating-icon">Z</span>
+                <span class="floating-text">Zalo</span>
+            </a>
 
-    <!-- Facebook -->
-    <a
-        href="https://www.facebook.com/HaiSanTuoiSongVungTauCaySiQuan/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="floating-contact-btn facebook"
-        aria-label="Facebook"
-    >
-        <span class="floating-icon">f</span>
-        <span class="floating-text">Facebook</span>
-    </a>
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/HaiSanTuoiSongVungTauCaySiQuan/" target="_blank" rel="noopener noreferrer"
+                class="floating-contact-btn facebook" aria-label="Facebook">
+                <span class="floating-icon">f</span>
+                <span class="floating-text">Facebook</span>
+            </a>
 
-</div>
+        </div>
 
     </main>
 
@@ -376,10 +415,10 @@
         <div class="footer-top">
             <div class="footer-logo">Caysi</div>
             <div class="footer-links">
-                <a href="#" data-i18n="navHome">Home</a>
-                <a href="#" data-i18n="navAbout">About</a>
+                <a href="#hero" data-i18n="navHome">Home</a>
+                <a href="#about" data-i18n="navAbout">About</a>
                 <a href="#" data-i18n="navMenu">Menu</a>
-                <a href="#" data-i18n="navContact">Contact</a>
+                <a href="#contact" data-i18n="navContact">Contact</a>
             </div>
         </div>
         <div class="footer-bottom">

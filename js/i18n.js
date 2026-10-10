@@ -9,12 +9,12 @@ const translations = {
         
         // Hero Section
         heroTitle: "CAYSI SEAFOOD RESTAURANT VUNG TAU",
-        heroDesc: "Freshly caught, expertly prepared, and served straight from the ocean to your plate. Experience flavors that celebrate the sea in every bite.",
+        heroDesc: "Fresh live seafood and ocean-to-table dining at Hải Sản Cây Si, Vũng Tàu, Vietnam.",
         bookBtn: "Book a table",
         exploreBtn: "Explore menu",
 
         // About Section
-        aboutSubtitle: "ABOUT US",
+        aboutSubtitle: "- ABOUT US -",
         aboutTitle: "FLAVORFUL CREATIONS EVERY PLATE",
         aboutDesc1: "At Caysi, we bring the freshest seafood from ocean to table. Our passion is simple: to serve dishes that celebrate the flavors of the sea, crafted with care, quality ingredients, and culinary expertise. Every day, our chefs select the finest catches, creating meals that are fresh, flavorful, and unforgettable. From classic favorites to signature creations, we combine tradition and innovation to deliver a dining experience that delights every sense.",
         aboutDesc2: "Whether you're joining us for a casual meal, a special occasion, or to savor the freshest seafood in town, we promise a journey of taste, freshness, and ocean-inspired excellence.",
@@ -22,7 +22,7 @@ const translations = {
         yearsText: "YEARS",
 
         // Menu Section
-        menuSubtitle: "Restaurant Menu",
+        menuSubtitle: "- RESTAURANT MENU -",
         menuDescription: "EACH DISH IS A CULINARY JOURNEY, ALLOWING GUESTS TO FULLY EXPERIENCE THE FLAVORS OF THE OCEAN."
     },
     vi: {
@@ -34,12 +34,12 @@ const translations = {
         
         // Hero Section
         heroTitle: "NHÀ HÀNG HẢI SẢN CÂY SI VŨNG TÀU",
-        heroDesc: "Tươi sống, chế biến chuyên nghiệp và phục vụ trực tiếp từ đại dương đến đĩa của bạn. Trải nghiệm hương vị tôn vinh biển cả trong từng miếng cắn.",
+        heroDesc: "Chuyên hải sản tươi sống. Cơm lẩu nướng. Cơm Khách đoàn liên hoan sinh nhật",
         bookBtn: "Đặt bàn",
         exploreBtn: "Xem thực đơn",
 
         // About Section
-        aboutSubtitle: "VỀ CHÚNG TÔI",
+        aboutSubtitle: "- VỀ CHÚNG TÔI -",
         aboutTitle: "SÁNG TẠO HƯƠNG VỊ TRONG TỪNG MÓN ĂN",
         aboutDesc1: "Tại Caysi, chúng tôi mang đến hải sản tươi sống nhất từ đại dương đến bàn ăn. Đam mê của chúng tôi rất đơn giản: phục vụ những món ăn tôn vinh hương vị biển cả, được chế biến bằng sự tận tâm, nguyên liệu hảo hạng và chuyên môn ẩm thực. Mỗi ngày, các đầu bếp của chúng tôi chọn lọc những mẻ lưới ngon nhất, tạo ra những bữa ăn tươi mới, đậm đà và khó quên. Từ các món ăn cổ điển được yêu thích đến các sáng tạo độc quyền, chúng tôi kết hợp truyền thống và sự đổi mới để mang lại trải nghiệm ẩm thực đánh thức mọi giác quan.",
         aboutDesc2: "Cho dù bạn đến với chúng tôi vì một bữa ăn bình dị, một dịp đặc biệt hay để thưởng thức hải sản tươi ngon nhất thị trấn, chúng tôi hứa hẹn một hành trình của hương vị, sự tươi mới và tinh hoa đại dương.",
@@ -47,7 +47,7 @@ const translations = {
         yearsText: "NĂM TUỔI",
 
         // Menu Section
-        menuSubtitle: "Menu nhà hàng",
+        menuSubtitle: "- MENU NHÀ HÀNG -",
         menuDescription: "MỖI MÓN ĂN LÀ MỘT HÀNH TRÌNH ẨM THỰC GIÚP THỰC KHÁCH THƯỞNG THỨC TRỌN VẸN HƯƠNG VỊ ĐẠI DƯƠNG."
 
     }
