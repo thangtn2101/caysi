@@ -30,6 +30,7 @@
         document.documentElement.lang = lang;
         $$('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (dictionary[lang]?.[k] !== undefined) el.textContent = word(k); });
         $$('[data-alt-i18n]').forEach(el => el.alt = word(el.dataset.altI18n));
+        $$('.image-viewer-trigger').forEach(el => el.setAttribute('aria-label', lang === 'en' ? 'View full image' : 'Xem \u1ea3nh \u0111\u1ea7y \u0111\u1ee7'));
         $$('[data-alt-vi][data-alt-en]').forEach(el => el.alt = el.dataset[lang === 'en' ? 'altEn' : 'altVi']);
         $$('[data-placeholder-i18n]').forEach(el => el.setAttribute('placeholder', word(el.dataset.placeholderI18n)));
         $$('[data-cat]').forEach(el => { const cat = cats.find(c => c.id === el.dataset.cat); if (cat) el.textContent = cat[lang]; });
@@ -57,6 +58,7 @@
     function renderFeatured() {
         const target = $('#featured-menu-items'); if (!target) return;
         const picks = [['hau', 0], ['ca-chim', 1], ['oc-mong-tay', 3], ['muc-sua', 0], ['lau', 0]];
+        window.CAYSI_MOTION?.forgetWithin(target);
         target.innerHTML = picks.map(([id, index]) => { const group = menu.find(g => g.id === id); if (!group) return ''; const item = group.items[index]; return `<article class="featured-item"><div><h3>${escapeHtml(item[lang])}</h3><small>${escapeHtml(item[lang === 'en' ? 'vi' : 'en'])}</small></div><div class="featured-price">${escapeHtml(prettyPrice(item.price || group.price))}</div></article>`; }).join('');
     }
     function matchDish(d, g) { if (!query) return true; return normalize([d.vi, d.en, g.vi, g.en].join(' ')).includes(query); }
@@ -81,15 +83,71 @@
         element.innerHTML = cats.map(c => `<button class="filter-btn" type="button" data-filter="${c.id}" aria-pressed="false">${escapeHtml(c[lang])}</button>`).join('');
         element.addEventListener('click', e => { const btn = e.target.closest('[data-filter]'); if (btn) { setFilter(btn.dataset.filter); try { history.replaceState(null, '', btn.dataset.filter === 'all' ? location.pathname : `#${btn.dataset.filter}`); } catch { } } });
         const search = $('#menu-search'); if (search) search.addEventListener('input', e => { query = normalize(e.target.value); renderMenu(); });
-        window.addEventListener('hashchange', () => { const id = decodeURIComponent(location.hash.slice(1)); if (cats.some(c => c.id === id)) { setFilter(id); document.getElementById('menu-controls')?.scrollIntoView({ block: 'start' }); } });
+        window.addEventListener('hashchange', () => { const id = decodeURIComponent(location.hash.slice(1)); if (cats.some(c => c.id === id)) { setFilter(id); const controls = document.getElementById('menu-controls'); if (window.CAYSI_SCROLL) window.CAYSI_SCROLL.scrollTo(controls); else controls?.scrollIntoView({ block: 'start' }); } });
         renderMenu();
     }
     function refreshCategoryFilters() { const panel = $('#menu-filter'); if (panel) $$('.filter-btn', panel).forEach(btn => { const c = cats.find(c => c.id === btn.dataset.filter); if (c) btn.textContent = c[lang]; }); }
     const originalSetLanguage = setLanguage;
     // Wrap translation+render so filter labels update without recreating listeners.
     function onLanguage(v) { originalSetLanguage(v); refreshCategoryFilters(); }
+    function initImageViewer() {
+        const images = $$('body[data-page="home"] figure img, body[data-page="about"] figure img, body[data-page="about"] .about-feature-art img, .space-scenes .scene > img');
+        if (!images.length) return;
+        const viewer = document.createElement('dialog');
+        viewer.className = 'image-viewer';
+        viewer.setAttribute('data-lenis-prevent', '');
+        viewer.innerHTML = '<button type="button" class="image-viewer-close" autofocus>&times;</button><img class="image-viewer-photo" alt=""><a class="image-viewer-original" target="_blank" rel="noopener noreferrer"></a>';
+        document.body.append(viewer);
+        const photo = $('.image-viewer-photo', viewer);
+        const close = $('.image-viewer-close', viewer);
+        const original = $('.image-viewer-original', viewer);
+        let opener;
+        images.forEach(img => {
+            const trigger = document.createElement('button');
+            trigger.type = 'button';
+            trigger.className = 'image-viewer-trigger';
+            trigger.setAttribute('aria-haspopup', 'dialog');
+            trigger.textContent = '\u2922';
+            trigger.setAttribute('aria-label', lang === 'en' ? 'View full image' : 'Xem \u1ea3nh \u0111\u1ea7y \u0111\u1ee7');
+            const frame = img.parentElement;
+            frame.classList.add('image-viewer-frame');
+            frame.append(trigger);
+            const open = () => {
+                if (typeof viewer.showModal !== 'function') { window.open(img.currentSrc || img.src, '_blank', 'noopener'); return; }
+                if (viewer.open) return;
+                opener = trigger;
+                photo.src = img.currentSrc || img.src;
+                photo.alt = img.alt;
+                close.setAttribute('aria-label', lang === 'en' ? 'Close image' : '\u0110\u00f3ng \u1ea3nh');
+                viewer.setAttribute('aria-label', lang === 'en' ? 'Full image' : '\u1ea2nh \u0111\u1ea7y \u0111\u1ee7');
+                original.href = img.src;
+                original.textContent = lang === 'en' ? 'Open original image' : 'M\u1edf \u1ea3nh g\u1ed1c';
+                viewer.showModal();
+                document.documentElement.classList.add('image-viewer-open');
+                window.CAYSI_SCROLL?.pause('image-viewer');
+            };
+            trigger.addEventListener('click', open);
+            frame.addEventListener('click', event => {
+                if (event.target.closest('a, button') || event.target.closest('.image-viewer-frame') !== frame) return;
+                open();
+            });
+        });
+        function restoreScroll() {
+            if (viewer.open || !document.documentElement.classList.contains('image-viewer-open')) return;
+            document.documentElement.classList.remove('image-viewer-open');
+            window.CAYSI_SCROLL?.resume('image-viewer');
+            photo.removeAttribute('src');
+            opener?.focus({ preventScroll: true });
+        }
+        function closeViewer() { viewer.close(); restoreScroll(); }
+        close.addEventListener('click', closeViewer);
+        viewer.addEventListener('click', event => { if (event.target === viewer) closeViewer(); });
+        viewer.addEventListener('cancel', event => { event.preventDefault(); closeViewer(); });
+        viewer.addEventListener('close', restoreScroll);
+    }
     function boot() {
         lang = getStoredLanguage(); initHeader(); initMenu(); translateDom(); refreshCategoryFilters(); renderFeatured(); renderMenu();
+        initImageViewer();
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

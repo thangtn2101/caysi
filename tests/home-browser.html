@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home gallery and scrolling checks</title>
+    <style>
+        body { margin: 0; }
+        iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+        #result { position: fixed; z-index: 10; bottom: 0; right: 0; padding: 12px; background: #fff; max-height: 40vh; max-width: 90vw; overflow: auto; }
+    </style>
+</head>
+<body>
+    <iframe id="home" title="Actual Home page under test"></iframe>
+    <pre id="result" data-status="running">Running Home checks...</pre>
+    <script>
+        const checks = [];
+        const assert = (condition, name) => checks.push({ pass: !!condition, name });
+        const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+        const frame = document.getElementById('home');
+        frame.addEventListener('load', async () => {
+            try {
+                const win = frame.contentWindow;
+                const doc = frame.contentDocument;
+                await wait(1200);
+                assert(!!win.CAYSI_SCROLL && typeof win.Lenis === 'function', 'Local Lenis and scroll controller load on Home');
+                const reduced = win.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                const motion = new URLSearchParams(location.search).get('motion');
+                if (motion) assert(reduced === (motion === 'reduce'), 'Runner emulates the requested motion preference');
+                assert(doc.documentElement.classList.contains('lenis'), 'Lenis is active in every motion mode');
+                assert(win.getComputedStyle(doc.documentElement).scrollBehavior === 'auto', 'Native smoothing does not compete with Lenis');
+                const figures = Array.from(doc.querySelectorAll('main figure')).filter(el => el.querySelector('img'));
+                assert(figures.length >= 15, 'All three Home figure galleries are present');
+                assert(figures.every(el => el.querySelector('.image-viewer-trigger')), 'Every Home figure has a viewer control');
+                for (const figure of figures) {
+                    const img = figure.querySelector('img');
+                    figure.click();
+                    const viewer = doc.querySelector('.image-viewer');
+                    assert(viewer?.open && viewer.querySelector('img').src === (img.currentSrc || img.src), 'Figure opens its full image: ' + img.getAttribute('src'));
+                    assert(doc.documentElement.classList.contains('lenis-stopped'), 'Viewer pauses Lenis');
+                    assert(doc.documentElement.classList.contains('image-viewer-open'), 'Viewer locks native background scrolling');
+                    viewer.querySelector('.image-viewer-close').click();
+                    await wait(20);
+                    assert(!viewer.open && !doc.documentElement.classList.contains('image-viewer-open'), 'Closing viewer releases scroll lock');
+                    assert(!doc.documentElement.classList.contains('lenis-stopped'), 'Closing viewer resumes Lenis');
+                }
+                const gallery = Array.from(doc.querySelectorAll('.food-collage > figure'));
+                assert(gallery.length === 8, 'Food gallery keeps all eight photographs');
+                assert(gallery.every(el => el.getBoundingClientRect().width >= 250 && el.getBoundingClientRect().height >= 300), 'Gallery uses generous photo frames');
+                assert(gallery.every(el => el.getBoundingClientRect().left >= -1 && el.getBoundingClientRect().right <= win.innerWidth + 1), 'Gallery fits the viewport');
+                if (win.innerWidth <= 600) assert(gallery.every(el => Math.abs(el.getBoundingClientRect().width - gallery[0].getBoundingClientRect().width) < 1), 'Phone gallery uses full-width photos');
+                const target = doc.querySelector('.taste-gallery');
+                win.CAYSI_SCROLL.scrollTo(target);
+                const deadline = performance.now() + 5000;
+                while (Math.abs(target.getBoundingClientRect().top - 100) >= 3 && performance.now() < deadline) await wait(50);
+                assert(win.scrollY > 100 && Math.abs(target.getBoundingClientRect().top - 100) < 3, `Programmatic scrolling reaches gallery below the sticky header (y=${win.scrollY}, top=${target.getBoundingClientRect().top})`);
+                const params = new URLSearchParams(location.search);
+                if (params.has('coarse')) assert(win.matchMedia('(hover: none) and (pointer: coarse)').matches, 'Touch input emulation is active');
+                if (params.has('fine')) assert(win.matchMedia('(hover: hover) and (pointer: fine)').matches, 'Mouse input emulation is active');
+            } catch (error) { assert(false, error.stack || String(error)); }
+            const result = document.getElementById('result');
+            result.dataset.status = checks.every(check => check.pass) ? 'pass' : 'fail';
+            result.textContent = JSON.stringify({ status: result.dataset.status, checks }, null, 2);
+        });
+        frame.src = '../index.html';
+    </script>
+</body>
+</html>

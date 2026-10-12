@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cay Si animation browser regression</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { padding: 12px; }
+    .fixture .section-heading { display: block; margin: 0; padding: 0; }
+    .fixture .section-title { font-size: 28px; line-height: 1.35; margin: 0 0 8px; }
+    .fixture .category-tile { display: block; padding: 8px; min-height: 0; height: 40px; margin-bottom: 8px; }
+    .fixture .hero-visual-frame { position: relative; inset: auto; width: 200px; height: 60px; min-height: 0; margin: 8px 0; background: #1ca7ec; }
+    .fixture .tall-spacer { height: 45vh; }
+    .fixture .scene { position: relative; height: 5000px; width: 200px; background: linear-gradient(#b9e8ee, #132d5b); }
+    #result { position: fixed; z-index: 10000; right: 8px; bottom: 8px; width: min(500px, 95vw); max-height: 45vh; overflow: auto; background: #fff; border: 1px solid #888; padding: 12px; font: 12px/1.5 monospace; }
+  </style>
+  <script>
+    const scenario = new URLSearchParams(location.search).get('scenario') || 'normal';
+    if (scenario === 'no-io') delete window.IntersectionObserver;
+    if (scenario === 'no-transform') {
+      const originalSupports = CSS.supports.bind(CSS);
+      CSS.supports = (property, value) => ['translate', 'scale'].includes(property) ? false : originalSupports(property, value);
+    }
+    window.fixtureErrors = [];
+    window.addEventListener('error', event => fixtureErrors.push(event.message));
+  </script>
+</head>
+<body>
+  <main class="fixture">
+    <div class="section-heading"><div><h2 class="section-title" id="title">Không gian đẹp, đầy cảm hứng</h2></div></div>
+    <a href="#" class="category-tile" id="card" style="transform: rotate(.5deg)">A card with an existing transform</a>
+    <div class="hero-visual-frame" id="image" aria-label="Image frame with decorative clipping"></div>
+    <div class="tall-spacer" aria-hidden="true"></div>
+    <figure class="scene" id="tall" aria-label="Tall image, higher than the viewport"></figure>
+    <a href="#" class="category-tile" id="focus-target">An offscreen keyboard focus target</a>
+  </main>
+  <pre id="result" data-status="running">Running animation regression checks...</pre>
+  <script>
+    window.fixtureBaseline = {
+      transform: getComputedStyle(document.getElementById('card')).transform,
+      clipPath: getComputedStyle(document.getElementById('image')).clipPath
+    };
+  </script>
+  <script src="../js/motion.js"></script>
+  <script>
+    (() => {
+      const checks = [];
+      const $ = id => document.getElementById(id);
+      const assert = (condition, name) => checks.push({ pass: !!condition, name });
+      const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+      const noClip = el => ['none', ''].includes(getComputedStyle(el).clipPath);
+      const visible = el => Number(getComputedStyle(el).opacity) >= .99 && el.getClientRects().length > 0;
+      async function run() {
+        assert(!!window.CAYSI_MOTION, 'Motion API initialized');
+        assert(noClip($('title')), 'Headline has no clipping mask before or during reveal');
+        if (scenario === 'no-io') {
+          assert(document.documentElement.dataset.motionMode === 'fallback-visible', 'No IntersectionObserver falls back to visible content');
+          assert(visible($('title')) && visible($('card')) && visible($('tall')), 'Unsupported browser content stays visible');
+          assert(!document.querySelector('.caysi-reveal'), 'Unsupported browser adds no hidden reveal classes');
+          return;
+        }
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced || scenario === 'no-transform') {
+          assert(CAYSI_MOTION.status().mode === 'soft-fade', 'Reduced motion or missing transform support uses fade');
+          CAYSI_MOTION.setIntensity('full');
+          assert(CAYSI_MOTION.status().mode === 'soft-fade', 'Full intensity respects accessibility/support fallback');
+        }
+        if (reduced) assert(getComputedStyle(document.documentElement).scrollBehavior === 'auto', 'Reduced motion disables smooth scrolling');
+        const deadline = performance.now() + 1500;
+        while ($('tall').dataset.motion === 'pending' && performance.now() < deadline) await wait(50);
+        assert(['running', 'done'].includes($('tall').dataset.motion), 'A 5000px image reveals without an intersection ratio lock');
+        assert(noClip($('title')), 'Headline stays unclipped during animation');
+        assert(getComputedStyle($('image')).clipPath === fixtureBaseline.clipPath, 'Image reveal preserves original decorative clipping');
+        if (reduced || scenario === 'no-transform') assert(['none', '0px', '0px 0px'].includes(getComputedStyle($('card')).translate), 'Fallback mode does not translate cards');
+        await wait(2300);
+        for (const id of ['title', 'card', 'image', 'tall']) {
+          assert($(id).dataset.motion === 'done', `${id} completes its reveal`);
+          assert(!$(id).classList.contains('caysi-reveal'), `${id} removes reveal transition classes`);
+          assert(visible($(id)), `${id} is fully visible after reveal`);
+        }
+        assert(getComputedStyle($('card')).transform === fixtureBaseline.transform, 'Reveal cleanup preserves original card transform');
+        assert(getComputedStyle($('image')).clipPath === fixtureBaseline.clipPath, 'Cleanup preserves original image clip');
+        assert($('focus-target').dataset.motion === 'pending', 'Offscreen content waits for entry');
+        $('focus-target').focus({ preventScroll: true });
+        assert($('focus-target').dataset.motion === 'done' && visible($('focus-target')), 'Keyboard focus reveals concealed content immediately');
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' });
+        await wait(50);
+        const above = document.createElement('p');
+        above.className = 'hero-description';
+        above.style.cssText = 'position:absolute;top:0;left:0;width:100px;height:30px';
+        above.textContent = 'Added above viewport';
+        document.body.append(above);
+        CAYSI_MOTION.refresh();
+        assert(above.dataset.motion === 'done' && !above.classList.contains('caysi-reveal'), 'Refresh never conceals content above the viewport');
+        const host = document.createElement('div');
+        host.style.cssText = 'position:fixed;top:100px;left:20px';
+        host.innerHTML = '<a class="category-tile" href="#">Dynamic replacement</a>';
+        document.body.append(host);
+        const trackedBefore = CAYSI_MOTION.status().tracked;
+        CAYSI_MOTION.refresh();
+        assert(CAYSI_MOTION.status().tracked === trackedBefore + 1, 'Refresh registers new dynamic content');
+        CAYSI_MOTION.forgetWithin(host);
+        assert(CAYSI_MOTION.status().tracked === trackedBefore && !host.querySelector('.caysi-reveal'), 'Replacing dynamic content clears motion ownership');
+        host.remove();
+        const coarseExpected = new URLSearchParams(location.search).get('coarse') === '1';
+        if (coarseExpected) assert(matchMedia('(hover: none) and (pointer: coarse)').matches, 'Runner actually emulates a touch pointer');
+        const fineExpected = new URLSearchParams(location.search).get('fine') === '1';
+        if (fineExpected) assert(matchMedia('(hover: hover) and (pointer: fine)').matches, 'Runner actually emulates a mouse pointer');
+      }
+      async function finish() {
+        try { await run(); } catch (error) { assert(false, error.stack || String(error)); }
+        assert(fixtureErrors.length === 0, 'No JavaScript errors: ' + fixtureErrors.join('; '));
+        const failed = checks.filter(check => !check.pass);
+        const result = $('result');
+        result.dataset.status = failed.length ? 'fail' : 'pass';
+        result.textContent = JSON.stringify({
+          status: result.dataset.status,
+          scenario,
+          viewport: { width: innerWidth, height: innerHeight },
+          media: { reduced: matchMedia('(prefers-reduced-motion: reduce)').matches, coarse: matchMedia('(pointer: coarse)').matches, hover: matchMedia('(hover: hover)').matches },
+          checks
+        }, null, 2);
+        document.title = `Animation checks: ${result.dataset.status.toUpperCase()}`;
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', finish, { once: true });
+      else finish();
+    })();
+  </script>
+</body>
+</html>
