@@ -2802,6 +2802,12 @@ button {
     min-height: 555px
 }
 
+@media (min-width: 941px) {
+    .live-seafood-grid {
+        min-height: clamp(680px, 56vw, 820px);
+    }
+}
+
 .live-seafood-grid figure {
     position: relative;
     min-height: 220px;
@@ -3059,6 +3065,28 @@ button {
     object-fit: cover
 }
 
+.about-feature .about-feature-art {
+    padding-bottom: 190px;
+}
+
+.feature-mini-images {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(8px, 2vw, 14px);
+    width: 90%;
+}
+
+.feature-mini-images > .feature-mini-image {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    min-width: 0;
+}
+
 .about-feature-copy .display-heading {
     margin-bottom: 25px
 }
@@ -3103,7 +3131,7 @@ button {
 }
 
 .about-season-image {
-    height: 520px;
+    height: 100%;
     overflow: hidden
 }
 
@@ -3295,13 +3323,17 @@ button {
         height: 190px
     }
 
+    .about-feature .about-feature-art {
+        padding-bottom: 150px;
+    }
+
     .about-atmosphere .about-feature-art,
     .about-atmosphere .about-feature-copy {
         order: initial
     }
 
     .about-season-image {
-        height: 400px
+        height: 100%
     }
 
     .about-cuisine-photos {
@@ -3397,8 +3429,12 @@ button {
         border-width: 6px
     }
 
+    .about-feature .about-feature-art {
+        padding-bottom: 110px;
+    }
+
     .about-season-image {
-        height: 300px
+        height: 100%
     }
 
     .about-cuisine-photos figure {
