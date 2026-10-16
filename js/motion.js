@@ -17,7 +17,7 @@
     '.space-preview-content > *', '.space-preview-images figure',
     '.contact-layout > div:first-child > *', '.contact-info-row',
     '.inner-hero .eyebrow', '.inner-hero h1', '.inner-hero p', '.inner-hero .btn',
-    '.inner-hero-visual', '.menu-hero-photo',
+    '.inner-hero-visual',
     '.about-story-lead > *', '.about-story-body > *',
     '.journey-year', '.about-year-copy > *',
     '.about-feature-art', '.about-feature-copy > *',
@@ -29,7 +29,7 @@
     '.menu-controls', '.menu-summary', '.menu-section-heading', '.menu-section-row', '.menu-notes'
   ];
   const headlineSelectors = '.hero h1, .inner-hero h1, .section-heading h2, .display-heading, .crab-title-block h2, .quality-inner h2, .journey-year, .about-feature-copy h2, .about-season-text h2';
-  const imageSelectors = '.hero-visual-frame, .inner-hero-visual, .menu-hero-photo, .food-gallery-item, .live-seafood-grid figure, .space-preview-images figure, .about-cuisine-photos figure, .about-season-image, .scene, .service-visual';
+  const imageSelectors = '.hero-visual-frame, .inner-hero-visual, .food-gallery-item, .live-seafood-grid figure, .space-preview-images figure, .about-cuisine-photos figure, .about-season-image, .scene, .service-visual';
   const cardSelectors = '.category-tile, .review-card, .occasion-grid article, .featured-item, .crab-feature-inner > img, .about-photo-wrap, .about-feature-art';
   const tracked = new Set();
   const timers = new Map();

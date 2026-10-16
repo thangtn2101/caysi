@@ -48,9 +48,9 @@ window.CAYSI_I18N = {
 
         // Home / Hero
         heroEyebrow: "VŨNG TÀU · VIỆT NAM  /  HẢI SẢN TƯƠI SỐNG",
-        hero1: "Seafood",
+        hero1: "Hải sản Vũng Tàu",
         hero2: "Cây Si Quán.",
-        heroText: "Hải sản tươi sống, món ngon đậm vị biển và những bữa gặp gỡ thật trọn vẹn. Ghé Cây Si, để mỗi cuộc hẹn thêm đáng nhớ.",
+        heroText: "Thưởng thức lẩu cá đuối, hải sản tươi sống và các món nướng tại Cây Si Quán Vũng Tàu. Ghé quán ở số 4 Lê Hồng Phong Nối Dài, cùng gia đình và bạn bè quây quần bên những món ngon đậm vị biển.",
         heroFoot1: "HẢI SẢN TƯƠI SỐNG",
         heroFoot2: "CƠM · LẨU · NƯỚNG",
         heroSide: "VỊ BIỂN VŨNG TÀU",
@@ -58,7 +58,7 @@ window.CAYSI_I18N = {
         // Home / Giới thiệu
         introLabel: "01 / CÂU CHUYỆN CÂY SI",
         introTitle: "Mộc mạc vị biển.\nẤm áp tình thân.",
-        introP1: "Ở Cây Si Quán, hải sản Vũng Tàu được biến tấu thành những món ăn thân thuộc — từ hàu nướng mỡ hành, cá nướng muối ớt đến nồi lẩu nóng hổi.",
+        introP1: "Ở Cây Si Quán, hải sản Vũng Tàu được biến tấu thành những món ăn thân thuộc — từ hàu nướng mỡ hành, cá nướng muối ớt đến lẩu cá đuối măng chua nóng hổi.",
         introP2: "Một bữa cơm gia đình, cuộc hẹn bạn bè hay buổi gặp mặt đông vui — chúng tôi luôn mong bạn có một nơi để thưởng thức hương vị biển theo cách thoải mái nhất.",
         introTag: "Một điểm hẹn cho những cuộc vui bên biển.",
 
@@ -120,6 +120,10 @@ window.CAYSI_I18N = {
         spaceText: "Gia đình quây quần, bạn bè rôm rả, các buổi liên hoan và hẹn gặp — Cây Si là nơi dành cho những khoảnh khắc cùng nhau.",
 
         // Home / Đặt bàn và liên hệ
+        locationLabel: "06 / GHÉ CÂY SI",
+        locationTitle: "Cây Si cách tháp Tam Thắng 300m",
+        locationText: "Từ Tháp Tam Thắng, ghé Cây Si tại số 4 Lê Hồng Phong Nối Dài. Hai điểm hẹn gần nhau, cho một buổi dạo biển và thưởng thức hải sản.",
+        locationFallback: "Xem vị trí Cây Si trên Google Maps ↗",
         contactLabel: "HẸN NHAU Ở CÂY SI",
         contactTitle: "Một bàn ăn,\nngàn chuyện vui.",
         contactText: "Bạn đang lên kế hoạch cho một bữa ăn bên gia đình, bạn bè hay khách đoàn? Gọi cho Cây Si để trao đổi và đặt bàn.",
@@ -204,8 +208,8 @@ window.CAYSI_I18N = {
 
         // Menu / Tìm kiếm, bộ lọc, giá và ghi chú
         menuHeroLabel: "THỰC ĐƠN CÂY SI",
-        menuHeroTitle: "Thực đơn\ncủa biển.",
-        menuHeroText: "Khám phá đầy đủ các món ăn, cách chế biến và mức giá trong thực đơn 18 trang Cây Si.",
+        menuHeroTitle: "Gọi món & Set menu.",
+        menuHeroText: "Chúng tôi phục vụ thực đơn gọi món đa dạng và set menu dành riêng cho khách đoàn, tiệc gia đình và liên hoan.",
         searchPlaceholder: "Tìm món ăn, nguyên liệu...",
         menuAll: "Tất cả",
         menuUnit: "đ",
@@ -238,6 +242,7 @@ window.CAYSI_I18N = {
         sceneCaption9: "Trọn vẹn bữa sum vầy",
 
         // Services / Dịch vụ
+        servicesSetMenu: "Tham khảo set menu",
         servicesHeroLabel: "DỊCH VỤ CÂY SI",
         servicesHeroTitle: "Liên hệ nếu bạn cần sử dụng dịch vụ.",
         servicesHeroText: "Từ bữa cơm thân mật đến buổi gặp gỡ đông vui, hãy liên hệ Cây Si để trao đổi về nhu cầu của nhóm bạn. Chúng tôi sẳn sàn phục vụ.",
@@ -292,7 +297,7 @@ window.CAYSI_I18N = {
 
         // Home / Hero
         heroEyebrow: "VŨNG TÀU · VIETNAM  /  FRESH SEAFOOD",
-        hero1: "Seafood",
+        hero1: "Hải sản Vũng Tàu",
         hero2: "Cây Si Quán",
         heroText: "Fresh seafood, familiar coastal flavors, and the joy of gathering together. Come to Cây Si and make every meal a moment to remember.",
         heroFoot1: "FRESH LIVE SEAFOOD",
@@ -364,6 +369,10 @@ window.CAYSI_I18N = {
         spaceText: "Family gatherings, lively catch-ups, celebrations and reunions — Cây Si brings people together over a shared taste of the sea.",
 
         // Home / Đặt bàn và liên hệ
+        locationLabel: "06 / FIND CÂY SI",
+        locationTitle: "Cây Si is 300m from Tam Thang Tower",
+        locationText: "From Tam Thang Tower, visit Cây Si at 4 Le Hong Phong Extension. Two nearby stops for a seaside stroll and a seafood meal.",
+        locationFallback: "View Cây Si on Google Maps ↗",
         contactLabel: "SEE YOU AT CÂY SI",
         contactTitle: "One table.\nA thousand stories.",
         contactText: "Planning a family get-together, a night with friends or a group meal? Call Cây Si to discuss your plans and reserve a table.",
@@ -448,8 +457,8 @@ window.CAYSI_I18N = {
 
         // Menu / Tìm kiếm, bộ lọc, giá và ghi chú
         menuHeroLabel: "CÂY SI FOOD & DRINK",
-        menuHeroTitle: "An ocean\nof flavors.",
-        menuHeroText: "Explore all dishes, cooking methods and listed prices from our complete 18-page menu.",
+        menuHeroTitle: "À la carte & set menus.",
+        menuHeroText: "We offer a varied à la carte menu and set menus tailored for groups, family gatherings and celebrations.",
         searchPlaceholder: "Search dishes and ingredients...",
         menuAll: "All",
         menuUnit: "VND",
@@ -482,6 +491,7 @@ window.CAYSI_I18N = {
         sceneCaption9: "A feast to share",
 
         // Services / Dịch vụ
+        servicesSetMenu: "View set menus",
         servicesHeroLabel: "CÂY SI SERVICES",
         servicesHeroTitle: "Contact us for your group dining needs.",
         servicesHeroText: "From a quiet family meal to a lively get-together, contact Cây Si to discuss your group’s needs. We’re ready to serve.",
