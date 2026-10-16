@@ -32,10 +32,19 @@
     window.CAYSI_SCROLL = {
         pause(reason) { paused.add(reason); sync(); },
         resume(reason) { paused.delete(reason); sync(); },
-        scrollTo(target) {
-            if (!target) return;
-            if (instance) instance.scrollTo(target);
-            else target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        scrollTo(target, { immediate = false } = {}) {
+            if (target == null) return;
+            if (instance) {
+                if (immediate) {
+                    // A view replacement can shorten the page during a wheel tween.
+                    // Cancel its old destination before measuring the new layout.
+                    instance.reset();
+                    instance.resize();
+                    instance.scrollTo(target, { immediate: true, force: true });
+                } else instance.scrollTo(target);
+            } else if (typeof target === 'number') {
+                window.scrollTo({ top: target, behavior: immediate ? 'instant' : 'smooth' });
+            } else target.scrollIntoView({ block: 'start', behavior: immediate ? 'instant' : 'smooth' });
         }
     };
     document.addEventListener('visibilitychange', () => {

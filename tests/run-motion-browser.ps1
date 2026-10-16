@@ -1,6 +1,6 @@
 param(
     [ValidateSet('Chrome', 'Edge')][string]$Browser = 'Chrome',
-    [ValidateSet('motion-browser.html', 'home-browser.html')][string]$Fixture = 'motion-browser.html'
+    [ValidateSet('motion-browser.html', 'home-browser.html', 'menu-browser.html')][string]$Fixture = 'motion-browser.html'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -50,7 +50,7 @@ $cases = @(
     @{ Name = 'no-transforms'; Size = '412,915'; Query = 'no-transform'; Extra = @() }
 )
 $failures = @()
-if ($Fixture -eq 'home-browser.html') {
+if ($Fixture -in @('home-browser.html', 'menu-browser.html')) {
     $cases = @($cases | Where-Object { $_.Name -in @('desktop', 'phone', 'tablet', 'reduced') })
 }
 foreach ($case in $cases) {
@@ -96,4 +96,4 @@ foreach ($case in $cases) {
     }
 }
 Write-Output "Browser artifacts: $runPath"
-if ($failures.Count) { throw ('Animation checks failed: ' + ($failures -join ', ')) }
+if ($failures.Count) { throw ('Browser checks failed: ' + ($failures -join ', ')) }

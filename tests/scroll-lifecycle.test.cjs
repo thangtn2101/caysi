@@ -14,20 +14,26 @@ function events() {
 }
 function setup({ reduced = false, available = true, hidden = false } = {}) {
     const instances = [];
+    const calls = [];
     const preference = Object.assign(events(), { matches: reduced });
     const nav = { setAttribute(name) { this[name] = true; } };
     const document = Object.assign(events(), { documentElement: {}, hidden, readyState: 'complete', getElementById: () => nav });
     class Lenis {
         constructor(options) { this.options = options; this.stopped = false; this.destroyed = false; instances.push(this); }
-        start() { this.stopped = false; }
-        stop() { this.stopped = true; }
-        resize() { this.resized = true; }
+        start() { calls.push('start'); this.stopped = false; }
+        stop() { calls.push('stop'); this.stopped = true; }
+        reset() { calls.push('reset'); }
+        resize() { calls.push('resize'); this.resized = true; }
         destroy() { this.destroyed = true; }
-        scrollTo(target, options) { this.lastScroll = { target, options }; }
+        scrollTo(target, options) { calls.push('scrollTo'); this.lastScroll = { target, options }; }
     }
-    const window = Object.assign(events(), { matchMedia: () => preference, Lenis: available ? Lenis : undefined });
+    const window = Object.assign(events(), {
+        matchMedia: () => preference,
+        Lenis: available ? Lenis : undefined,
+        scrollTo(options) { calls.push('nativeScrollTo'); this.lastScroll = options; }
+    });
     vm.runInNewContext(source, { window, document, console, getComputedStyle: () => ({ scrollPaddingTop: '100px' }) });
-    return { window, document, preference, instances, nav, api: window.CAYSI_SCROLL };
+    return { window, document, preference, instances, nav, calls, api: window.CAYSI_SCROLL };
 }
 const tests = [];
 function test(name, run) { tests.push({ name, run }); }
@@ -97,6 +103,45 @@ test('programmatic menu scrolling lets Lenis read CSS header offsets', () => {
     assert.equal(h.instances[0].lastScroll.options, undefined);
     assert.equal(h.instances[0].options.prevent({ closest: () => ({}) }), true);
     assert.equal(h.instances[0].options.prevent({ closest: () => null }), false);
+});
+test('immediate menu navigation refreshes document limits before cancelling wheel interpolation', () => {
+    const h = setup();
+    const target = {};
+    h.calls.length = 0;
+    h.api.scrollTo(target, { immediate: true });
+    assert.equal(h.instances[0].lastScroll.target, target);
+    assert.equal(h.instances[0].lastScroll.options.immediate, true);
+    assert.equal(h.instances[0].lastScroll.options.force, true);
+    assert(h.calls.indexOf('reset') >= 0 && h.calls.indexOf('reset') < h.calls.indexOf('resize'));
+    assert(h.calls.indexOf('resize') >= 0 && h.calls.indexOf('resize') < h.calls.indexOf('scrollTo'));
+    assert.equal(h.instances[0].stopped, false);
+});
+test('immediate restoration accepts scroll position zero and preserves every pause reason', () => {
+    const h = setup();
+    h.api.pause('image-viewer');
+    h.document.hidden = true;
+    h.document.emit('visibilitychange');
+    h.api.scrollTo(0, { immediate: true });
+    assert.equal(h.instances[0].lastScroll.target, 0);
+    assert.equal(h.instances[0].lastScroll.options.immediate, true);
+    assert.equal(h.instances[0].stopped, true);
+    h.api.resume('image-viewer');
+    assert.equal(h.instances[0].stopped, true);
+    h.document.hidden = false;
+    h.document.emit('visibilitychange');
+    assert.equal(h.instances[0].stopped, false);
+});
+test('native fallback supports instant element navigation and numeric restoration including zero', () => {
+    const h = setup({ available: false });
+    let options;
+    h.api.scrollTo({ scrollIntoView: value => { options = value; } }, { immediate: true });
+    assert.equal(options.block, 'start');
+    assert.equal(options.behavior, 'instant');
+    for (const top of [927, 0]) {
+        h.api.scrollTo(top, { immediate: true });
+        assert.equal(h.window.lastScroll.top, top);
+        assert.equal(h.window.lastScroll.behavior, 'instant');
+    }
 });
 test('initially hidden documents resume Lenis after returning to the tab', () => {
     const h = setup({ hidden: true });

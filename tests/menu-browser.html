@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Individual menu browsing checks</title>
+    <style>
+        body { margin: 0; }
+        iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+        #result { position: fixed; z-index: 10; bottom: 0; right: 0; padding: 12px; background: #fff; max-height: 40vh; max-width: 90vw; overflow: auto; }
+    </style>
+</head>
+<body>
+    <iframe id="menu" title="Actual Menu page under test"></iframe>
+    <pre id="result" data-status="running">Running menu checks...</pre>
+    <script>
+        const checks = [];
+        const assert = (condition, name) => checks.push({ pass: !!condition, name });
+        const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+        const settleFocus = () => new Promise(resolve => win.requestAnimationFrame(() => win.requestAnimationFrame(resolve)));
+        const until = async condition => {
+            const deadline = performance.now() + 3000;
+            while (!condition() && performance.now() < deadline) await wait(20);
+            return !!condition();
+        };
+        const normalize = value => String(value).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/\s+/g, ' ').trim();
+        const frame = document.getElementById('menu');
+        let win, doc, collection;
+        const adoptPage = () => { win = frame.contentWindow; doc = frame.contentDocument; collection = doc.getElementById('menu-collection'); };
+        const groups = () => Array.from(collection.querySelectorAll('.menu-section'));
+        const buttons = () => Array.from(collection.querySelectorAll('.menu-section-view[data-menu-section]'));
+        const detail = () => collection.querySelector('.menu-detail');
+        const rows = () => Array.from(collection.querySelectorAll('.menu-section-row'));
+        const groupIds = () => groups().map(group => group.id);
+        const buttonFor = id => buttons().find(button => button.dataset.menuSection === id);
+        const imageSource = image => image?.getAttribute('src') || image?.getAttribute('data-src') || '';
+        const insideViewport = element => {
+            const bounds = element.getBoundingClientRect();
+            return bounds.left >= -1 && bounds.right <= win.innerWidth + 1;
+        };
+        const squareCorners = element => ['borderTopLeftRadius', 'borderTopRightRadius', 'borderBottomLeftRadius', 'borderBottomRightRadius'].every(corner => parseFloat(win.getComputedStyle(element)[corner]) === 0);
+        const hasTwoColumns = elements => {
+            const bounds = elements.slice(0, 3).map(element => element.getBoundingClientRect());
+            return bounds.length === 3 && Math.abs(bounds[0].top - bounds[1].top) <= 1 && bounds[0].right <= bounds[1].left && bounds[2].top >= bounds[0].bottom - 1;
+        };
+        const searchFor = value => {
+            const search = doc.getElementById('menu-search');
+            search.value = value;
+            search.dispatchEvent(new win.Event('input', { bubbles: true }));
+        };
+        const backToCards = async () => {
+            doc.querySelector('[data-menu-back]').click();
+            const returned = await until(() => !detail() && buttons().length > 0);
+            await settleFocus();
+            return returned;
+        };
+        const configuredDishImage = entry => {
+            const basePath = win.CAYSI_MENU_DISH_IMAGES.basePath;
+            if (typeof entry === 'string') return entry.trim() ? { src: basePath + entry.trim() } : null;
+            if (entry?.src?.trim()) return entry;
+            if (entry?.file?.trim()) return { ...entry, src: basePath + entry.file.trim() };
+            return null;
+        };
+        const assetUrl = source => new URL('../' + source, doc.baseURI).href;
+        const expectedImage = (group, index) => {
+            const dish = group.items[index];
+            const picture = configuredDishImage(win.CAYSI_MENU_DISH_IMAGES.dishes[group.id]?.[dish.vi]) || win.CAYSI_MENU_IMAGES.sections[group.id];
+            return assetUrl(picture.src);
+        };
+        const viewerButtons = () => Array.from(collection.querySelectorAll('.image-viewer-trigger'));
+        const checkViewer = async (photoFrame, expectedAlt, label, closeMethod = 'button', clickPhoto = false) => {
+            // Filters replace a tall collection synchronously; let native scroll
+            // clamping and pending menu focus restoration settle before measuring.
+            await settleFocus();
+            const trigger = photoFrame.querySelector('.image-viewer-trigger');
+            const image = photoFrame.querySelector('img');
+            const before = { hash: win.location.hash, detail: detail()?.dataset.menuDetail, count: groups().length, scrollY: win.scrollY };
+            assert(trigger?.tagName === 'BUTTON' && trigger.type === 'button' && trigger.getAttribute('aria-haspopup') === 'dialog' && trigger.getAttribute('aria-controls') === 'image-viewer', label + ': the photo has an accessible native viewer control');
+            trigger.focus({ preventScroll: true });
+            (clickPhoto ? image : trigger).click();
+            const viewer = doc.querySelector('dialog.image-viewer');
+            assert(viewer?.open && viewer.matches(':modal') && doc.querySelectorAll('.image-viewer').length === 1, label + ': one shared native modal opens');
+            assert(viewer.querySelector('.image-viewer-photo').src === (image.currentSrc || image.src) && viewer.querySelector('.image-viewer-photo').alt === expectedAlt, label + ': the popup shows the selected image and localized name');
+            assert(win.location.hash === before.hash && detail()?.dataset.menuDetail === before.detail && groups().length === before.count, label + ': opening the image preserves the current menu view and URL');
+            assert(doc.documentElement.classList.contains('image-viewer-open') && doc.documentElement.classList.contains('lenis-stopped'), label + ': native and Lenis background scrolling are locked');
+            if (closeMethod === 'cancel') viewer.dispatchEvent(new win.Event('cancel', { cancelable: true }));
+            else if (closeMethod === 'backdrop') viewer.click();
+            else viewer.querySelector('.image-viewer-close').click();
+            await until(() => !viewer.open);
+            await settleFocus();
+            assert(!viewer.open && !doc.documentElement.classList.contains('image-viewer-open') && !doc.documentElement.classList.contains('lenis-stopped'), label + ': ' + closeMethod + ' close releases all modal scroll locks');
+            assert(doc.activeElement === trigger, label + ': closing restores photo-control focus');
+            assert(Math.abs(win.scrollY - before.scrollY) <= 2, label + ': closing preserves page position (' + before.scrollY + ' → ' + win.scrollY + ')');
+        };
+        const checkDetail = (group, label) => {
+            assert(detail()?.dataset.menuDetail === group.id && groups().length === 0 && collection.querySelectorAll('.menu-detail').length === 1, label + ': the collection becomes only the selected group detail');
+            assert(rows().length === group.items.length && rows().every((row, index) => row.tagName === 'ARTICLE' && row.querySelector('.dish-label h3')?.textContent.trim() === group.items[index][doc.documentElement.lang]), label + ': all original dishes appear in menu order with headings');
+            assert(rows().every((row, index) => row.querySelector('.menu-dish-photo img')?.getAttribute('src') && new URL(imageSource(row.querySelector('img')), doc.baseURI).href === expectedImage(group, index)), label + ': each dish uses its Vietnamese-name image configuration or the group cover');
+            assert(rows().every(insideViewport) && doc.documentElement.scrollWidth <= win.innerWidth + 1, label + ': dish cards fit the viewport');
+            assert(!doc.getElementById('menu-controls').hidden && win.getComputedStyle(doc.getElementById('menu-filter')).display !== 'none' && doc.querySelector('.menu-summary').hidden, label + ': category filters remain visible in detail while the collection count is hidden');
+            assert(!detail().querySelector('.menu-detail-heading img') && detail().querySelector('.menu-detail-copy h2') && detail().querySelector('.menu-detail-pricing .menu-section-price'), label + ': the detail heading uses text and a separate price block without a cover image');
+            assert(rows().every(row => squareCorners(row) && squareCorners(row.querySelector('.menu-dish-photo'))), label + ': dish cards and photo frames have square corners');
+            assert(rows().every(row => row.querySelectorAll('.menu-dish-photo .image-viewer-trigger').length === 1), label + ': each dynamically rendered dish photo has exactly one viewer control');
+            if (win.innerWidth <= 600 && rows().length >= 3) assert(hasTwoColumns(rows()), label + ': mobile detail shows two dish cards per row');
+        };
+
+        async function runChecks() {
+            try {
+                adoptPage();
+                await wait(300);
+                doc.querySelector('[data-lang="vi"]').click();
+                const data = win.CAYSI_MENU;
+                assert(data.length === 48 && data.reduce((sum, group) => sum + group.items.length, 0) === 204, 'Menu data retains all 48 groups and 204 dishes');
+                assert(groups().length === 48 && buttons().length === 48 && rows().length === 0 && !collection.querySelector('.menu-section-dishes'), 'First view renders all 48 group cards without mounting dish lists');
+                assert(JSON.stringify(groupIds().slice(0, 3)) === JSON.stringify(['cua', 'ngheu', 'lau']), 'The first three menu cards feature premium seafood, shellfish and hotpot');
+                assert(JSON.stringify(Array.from(doc.querySelectorAll('#menu-filter [data-filter]')).slice(0, 4).map(button => button.dataset.filter)) === JSON.stringify(['all', 'premium', 'shellfish', 'hotpot']), 'Category filters place premium seafood, shellfish and hotpot first after All');
+                assert(groups().every(group => group.querySelector('h2') && !group.querySelector('h2 button') && group.querySelector('.menu-section-cover img')), 'Each card has a static heading and an image');
+                assert(buttons().every(button => button.tagName === 'BUTTON' && button.type === 'button' && !button.hasAttribute('aria-expanded') && button.textContent.includes('Xem danh sách món')), 'Each card has an explicit native View dishes button without accordion state');
+                assert(buttons().every(button => button.classList.contains('editorial-link') && button.querySelector('.round-arrow')?.textContent.trim() === '↗'), 'View dishes actions reuse the editorial link and circular arrow design');
+                assert(buttons().every(button => button.getBoundingClientRect().height > 0 && button.getBoundingClientRect().height <= 36), 'Editorial actions stay compact inside the clickable card at every viewport size');
+                assert(groups().every(group => group.dataset.menuCard === group.id && group.querySelectorAll('.menu-section-view').length === 1 && group.querySelectorAll('.menu-section-cover .image-viewer-trigger').length === 1 && group.querySelectorAll('button, a, [tabindex="0"]').length === 2), 'Each clickable card has separate native controls for dish navigation and its image viewer');
+                assert(groups().every(group => squareCorners(group) && squareCorners(group.querySelector('.menu-section-cover'))), 'Group cards and cover images have square corners');
+                assert(!doc.querySelector('.menu-section-category, [data-i18n="menuImageNote"]'), 'Cards omit category eyebrows and the image illustration note');
+                assert(groups().every(insideViewport) && doc.documentElement.scrollWidth <= win.innerWidth + 1, 'The group grid has no horizontal overflow');
+                if (win.innerWidth <= 600) {
+                    assert(hasTwoColumns(groups()), 'Mobile shows two distinct group cards per row');
+                    assert(groups().every(group => {
+                        const subtitle = group.querySelector('.menu-section-heading-copy > small');
+                        const expected = data.find(item => item.id === group.id).en;
+                        return subtitle?.textContent.trim() === expected && win.getComputedStyle(subtitle).display !== 'none' && subtitle.getBoundingClientRect().height > 0;
+                    }), 'Every mobile card retains its visible English subtitle');
+                }
+
+                const images = win.CAYSI_MENU_IMAGES;
+                const dishImages = win.CAYSI_MENU_DISH_IMAGES;
+                assert(dishImages?.basePath === 'assets/dishes-img/' && data.every(group => group.items.every(dish => Object.prototype.hasOwnProperty.call(dishImages.dishes[group.id] || {}, dish.vi))), 'The separate dish-photo configuration provides an editable slot for all 204 Vietnamese dish names');
+                const configuredPhotos = Object.values(dishImages.dishes).flatMap(group => Object.values(group)).map(configuredDishImage).filter(Boolean);
+                const sources = [...new Set([...Object.values(images.sections), ...configuredPhotos].map(picture => '../' + picture.src))];
+                assert(sources.length > 0 && sources.every(source => new URL(source, doc.baseURI).origin === new URL(doc.baseURI).origin && !/^https?:\/\//i.test(source)), 'All heading and dish illustrations use bundled local assets');
+                const loaded = await Promise.all(sources.map(source => new Promise(resolve => {
+                    const image = new win.Image();
+                    const timeout = setTimeout(() => resolve({ source, ok: false }), 6000);
+                    const finish = ok => { clearTimeout(timeout); resolve({ source, ok }); };
+                    image.onload = () => finish(image.naturalWidth >= 160 && image.naturalHeight >= 160);
+                    image.onerror = () => finish(false);
+                    image.src = new URL(source, doc.baseURI).href;
+                })));
+                assert(loaded.every(item => item.ok), 'Every heading and dish image loads: ' + (loaded.filter(item => !item.ok).map(item => item.source).join(', ') || sources.length + ' local assets'));
+                assert(viewerButtons().length === 48 && doc.querySelectorAll('dialog.image-viewer').length === 1, 'Repeated initial rendering creates one viewer and one image control per group card');
+                assert(viewerButtons().every(button => button.getAttribute('aria-label') === 'Xem ảnh đầy đủ'), 'Initial group viewer controls use Vietnamese labels');
+                if (win.innerWidth <= 600) assert(viewerButtons().every(button => button.getBoundingClientRect().width >= 36 && button.getBoundingClientRect().height >= 36), 'Mobile image controls retain usable touch targets');
+                await checkViewer(groups()[0].querySelector('.menu-section-cover'), data[0].vi, 'Collection image');
+
+                // An in-flight Lenis wheel tween must not pull a short detail to its footer
+                // after replacing the much taller collection. The first frame alone can
+                // appear correct, so check both immediately and after interpolation ends.
+                const deepCard = groups().at(-1);
+                const deepId = deepCard.id;
+                win.CAYSI_SCROLL.pause('menu-scroll-regression');
+                win.scrollTo({ top: deepCard.getBoundingClientRect().top + win.scrollY - 400, behavior: 'instant' });
+                win.CAYSI_SCROLL.resume('menu-scroll-regression');
+                await wait(100);
+                win.dispatchEvent(new win.WheelEvent('wheel', { deltaY: 550, bubbles: true, cancelable: true }));
+                await wait(40);
+                const deepOrigin = win.scrollY;
+                deepCard.querySelector('.menu-section-cover').click();
+                await until(() => detail()?.dataset.menuDetail === deepId);
+                const detailStartsInView = () => {
+                    const filter = doc.getElementById('menu-filter').getBoundingClientRect();
+                    const heading = doc.getElementById('menu-detail-title').getBoundingClientRect();
+                    const header = doc.getElementById('header').getBoundingClientRect();
+                    return filter.top >= header.bottom - 1 && filter.bottom < win.innerHeight && heading.top >= header.bottom - 1 && heading.bottom < win.innerHeight;
+                };
+                await wait(100);
+                assert(detailStartsInView(), 'Selecting the final card during a wheel gesture opens detail at the filters and heading');
+                await wait(1100);
+                assert(detailStartsInView(), 'Detail remains at its top after the previous collection wheel tween would have completed');
+                assert(await backToCards(), 'A detail opened from the bottom returns to the collection');
+                await wait(200);
+                assert(Math.abs(win.scrollY - deepOrigin) <= 2 && doc.activeElement === buttonFor(deepId), 'Returning restores the deep originating card position and button focus');
+
+                const firstGroup = data[0];
+                groups()[0].querySelector('h2').click();
+                assert(await until(() => detail()?.dataset.menuDetail === firstGroup.id), 'Clicking the card title opens its detail');
+                assert(await backToCards(), 'Returning after a title click restores the collection');
+                groups()[1].querySelector('.menu-section-cover img').click();
+                assert(await until(() => detail()?.dataset.menuDetail === data[1].id), 'Clicking the card image opens its detail');
+                assert(await backToCards(), 'Returning after an image click restores the collection');
+                const firstButton = buttonFor(firstGroup.id);
+                firstButton.focus({ preventScroll: true });
+                assert(doc.activeElement === firstButton, 'View dishes buttons accept keyboard focus');
+                firstButton.click();
+                await until(() => detail()?.dataset.menuDetail === firstGroup.id);
+                await settleFocus();
+                checkDetail(firstGroup, 'Opening a card');
+                assert(win.location.hash === '#menu/' + firstGroup.id, 'Opening detail creates a shareable group hash');
+                assert(doc.activeElement === doc.getElementById('menu-detail-title') && doc.activeElement.tagName === 'H2' && doc.activeElement.tabIndex === -1, 'Opening detail moves focus to its heading');
+                const filterBounds = doc.getElementById('menu-filter').getBoundingClientRect();
+                const headerBottom = doc.getElementById('header').getBoundingClientRect().bottom;
+                assert(filterBounds.top >= headerBottom - 1 && filterBounds.top < win.innerHeight && filterBounds.bottom > filterBounds.top, 'Opening detail keeps the category filter onscreen below the site header');
+                await checkViewer(rows()[0].querySelector('.menu-dish-photo'), firstGroup.vi + ' — ' + firstGroup.items[0].vi, 'Dish photo', 'cancel', true);
+                win.history.back();
+                assert(await until(() => !detail() && groups().length === 48), 'One Browser Back returns from the CTA detail without a duplicate history entry');
+                await settleFocus();
+                assert(doc.activeElement === buttonFor(firstGroup.id), 'Browser Back restores focus to the originating card button');
+                win.history.forward();
+                assert(await until(() => detail()?.dataset.menuDetail === firstGroup.id), 'Browser Forward restores the selected detail');
+                checkDetail(firstGroup, 'Browser Forward');
+                assert(await backToCards(), 'The detail back button returns to cards');
+                assert(doc.activeElement === buttonFor(firstGroup.id) && !doc.getElementById('menu-controls').hidden && !doc.querySelector('.menu-summary').hidden, 'Returning restores card focus and collection controls');
+
+                doc.querySelector('[data-filter="fish"]').click();
+                const fishIds = data.filter(group => group.category === 'fish').map(group => group.id);
+                assert(JSON.stringify(groupIds()) === JSON.stringify(fishIds) && rows().length === 0, 'Fish filter shows only fish group cards in menu order');
+                await checkViewer(groups()[0].querySelector('.menu-section-cover'), data.find(group => group.id === fishIds[0]).vi, 'Filtered group image', 'backdrop');
+                buttonFor(fishIds[1]).click();
+                await until(() => detail()?.dataset.menuDetail === fishIds[1]);
+                assert(await backToCards(), 'A filtered detail returns to its collection');
+                assert(JSON.stringify(groupIds()) === JSON.stringify(fishIds) && doc.querySelector('[data-filter="fish"]').getAttribute('aria-pressed') === 'true' && doc.activeElement === buttonFor(fishIds[1]), 'Returning preserves the category filter and originating button focus');
+                buttonFor(fishIds[0]).click();
+                await until(() => detail()?.dataset.menuDetail === fishIds[0]);
+                doc.querySelector('[data-filter="oysters"]').click();
+                const oysterIds = data.filter(group => group.category === 'oysters').map(group => group.id);
+                assert(!detail() && JSON.stringify(groupIds()) === JSON.stringify(oysterIds) && win.location.hash === '#oysters' && !win.history.state?.caysiMenuDetail, 'Using the visible category filter leaves detail and updates the collection URL and history state');
+                doc.querySelector('[data-filter="all"]').click();
+                const expectedSearchIds = value => data.filter(group => group.items.some(item => normalize([item.vi, item.en, group.vi, group.en].join(' ')).includes(normalize(value)))).map(group => group.id);
+                searchFor('HAU NUONG PHO MAI');
+                assert(buttons().length > 0 && JSON.stringify(groupIds()) === JSON.stringify(expectedSearchIds('HAU NUONG PHO MAI')) && rows().length === 0, 'Vietnamese search ignores accents and capitalization while showing matching groups');
+                searchFor('grilled oysters with cheese');
+                assert(buttons().length > 0 && JSON.stringify(groupIds()) === JSON.stringify(expectedSearchIds('grilled oysters with cheese')), 'English dish names can be searched while browsing in Vietnamese');
+
+                // A named dish override must survive searching for that dish.
+                const sampleGroup = data.find(group => group.id === 'so-diep');
+                const sampleQuery = sampleGroup.items[1].en;
+                searchFor(sampleQuery);
+                const searchIds = groupIds();
+                await checkViewer(doc.getElementById(sampleGroup.id).querySelector('.menu-section-cover'), sampleGroup.vi, 'Search-result image');
+                buttonFor(sampleGroup.id).click();
+                await until(() => detail()?.dataset.menuDetail === sampleGroup.id);
+                checkDetail(sampleGroup, 'Opening a dish search result');
+                assert(await backToCards(), 'A search detail returns to results');
+                assert(doc.getElementById('menu-search').value === sampleQuery && JSON.stringify(groupIds()) === JSON.stringify(searchIds) && doc.activeElement === buttonFor(sampleGroup.id), 'Returning preserves the query, matching cards and focused result');
+                buttonFor(sampleGroup.id).click();
+                await until(() => detail()?.dataset.menuDetail === sampleGroup.id);
+                doc.querySelector('[data-filter="all"]').click();
+                assert(!detail() && doc.getElementById('menu-search').value === sampleQuery && JSON.stringify(groupIds()) === JSON.stringify(searchIds), 'Choosing a category from detail preserves the current search query');
+                buttonFor(sampleGroup.id).click();
+                await until(() => detail()?.dataset.menuDetail === sampleGroup.id);
+                searchFor('HAU NUONG PHO MAI');
+                assert(!detail() && JSON.stringify(groupIds()) === JSON.stringify(expectedSearchIds('HAU NUONG PHO MAI')) && !win.location.hash.startsWith('#menu/') && !win.history.state?.caysiMenuDetail, 'Searching from detail shows matching cards and clears the stale detail URL and history state');
+                searchFor('no-such-menu-item-987654321');
+                assert(groups().length === 0 && rows().length === 0 && !doc.getElementById('menu-empty').hidden, 'Unmatched search displays the empty state');
+                searchFor('');
+                assert(groups().length === 48 && rows().length === 0 && doc.getElementById('menu-empty').hidden, 'Clearing search restores all group cards without dish lists');
+
+                const pricedGroup = data.find(group => group.price?.unitVi && group.price.unitVi !== group.price.unitEn);
+                buttonFor(pricedGroup.id).click();
+                await until(() => detail()?.dataset.menuDetail === pricedGroup.id);
+                const vietnamesePrice = detail().querySelector('.menu-section-price').textContent;
+                doc.querySelector('[data-lang="en"]').click();
+                await wait(30);
+                checkDetail(pricedGroup, 'Changing language');
+                assert(doc.getElementById('menu-detail-title').textContent.includes(pricedGroup.en), 'Detail heading updates to English');
+                const englishPrice = detail().querySelector('.menu-section-price').textContent;
+                assert(englishPrice !== vietnamesePrice && englishPrice.includes('/' + pricedGroup.price.unitEn), 'Detail price unit updates to English');
+                assert(rows().every(row => row.querySelector('.dish-price')?.textContent.includes('/' + pricedGroup.price.unitEn)), 'Dish price units update to English');
+                assert(viewerButtons().every(button => button.getAttribute('aria-label') === 'View full image'), 'Viewer controls update to English after detail rerender');
+                await checkViewer(rows()[0].querySelector('.menu-dish-photo'), pricedGroup.en + ' — ' + pricedGroup.items[0].en, 'English dish image');
+
+                doc.getElementById('menu-mode-set').click();
+                assert(doc.getElementById('individual-menu').hidden && !doc.getElementById('set-menu').hidden, 'Set menu switch hides the individual menu');
+                assert(doc.querySelectorAll('.set-menu-card').length === 29, 'All 29 set menus remain available');
+                doc.querySelector('[data-set-price="185000"]').click();
+                assert(doc.querySelectorAll('.set-menu-card').length === 4, 'Set menu price filtering still works');
+                doc.getElementById('menu-mode-individual').click();
+                assert(!doc.getElementById('individual-menu').hidden && doc.getElementById('set-menu').hidden && detail()?.dataset.menuDetail === pricedGroup.id && rows().length === pricedGroup.items.length, 'Returning to individual menu preserves its selected detail');
+                assert(await backToCards(), 'Returning from the English detail restores cards');
+                assert(buttons().every(button => button.textContent.includes('View dishes')), 'Card action labels update to English');
+                await checkViewer(groups()[0].querySelector('.menu-section-cover'), data[0].en, 'English collection image');
+
+                groups()[0].querySelector('.image-viewer-trigger').click();
+                assert(doc.querySelector('.image-viewer').open, 'The viewer can reopen after collection rerenders');
+                doc.querySelector('[data-lang="vi"]').click();
+                await settleFocus();
+                assert(!doc.querySelector('.image-viewer').open && !doc.documentElement.classList.contains('image-viewer-open') && !doc.documentElement.classList.contains('lenis-stopped'), 'Replacing menu cards while their viewer is open closes it and releases scroll locks');
+                assert(viewerButtons().length === groups().length && groups().every(group => group.querySelectorAll('.image-viewer-trigger').length === 1) && doc.querySelectorAll('dialog.image-viewer').length === 1, 'Language rerenders retain one viewer and one trigger per new card');
+                doc.querySelector('[data-lang="en"]').click();
+
+                // Exercise the editable configuration using existing bundled photos;
+                // no copied test assets or production configuration changes are needed.
+                const configurableGroup = data.find(group => group.id === 'lau');
+                const originalBasePath = dishImages.basePath;
+                const originalEntries = dishImages.dishes[configurableGroup.id];
+                const originalCover = images.sections[configurableGroup.id];
+                const originalItems = configurableGroup.items.slice();
+                const named = originalItems.map(dish => dish.vi);
+                const configuredSources = {
+                    [named[0]]: assetUrl('assets/menu-images/beef.jpg'),
+                    [named[1]]: assetUrl('assets/menu-images/vegetables.jpg'),
+                    [named[2]]: assetUrl('assets/scallops.jpg')
+                };
+                const dishPhoto = name => rows().find(row => row.querySelector('h3').textContent === configurableGroup.items.find(dish => dish.vi === name)[doc.documentElement.lang])?.querySelector('img');
+                const loadNow = () => rows().forEach(row => { row.querySelector('img').loading = 'eager'; });
+                try {
+                    dishImages.basePath = 'assets/menu-images/';
+                    dishImages.dishes[configurableGroup.id] = {
+                        [named[0]]: 'beef.jpg',
+                        [named[1]]: { file: 'vegetables.jpg', position: '25% 75%' },
+                        [named[2]]: { src: 'assets/scallops.jpg', position: '70% 30%' },
+                        [named[3]]: '',
+                        [named[4]]: 'missing-configured-dish-photo.jpg',
+                        [named[5]]: ''
+                    };
+                    doc.querySelector('[data-lang="vi"]').click();
+                    buttonFor(configurableGroup.id).click();
+                    await until(() => detail()?.dataset.menuDetail === configurableGroup.id);
+                    loadNow();
+                    assert(Object.entries(configuredSources).every(([name, source]) => dishPhoto(name).src === source), 'Filename, file-object and site-relative src entries override group covers using the configured base directory');
+                    assert(dishPhoto(named[1]).style.objectPosition === '25% 75%' && dishPhoto(named[2]).style.objectPosition === '70% 30%', 'File and src objects preserve the configured image crop');
+                    assert(dishPhoto(named[3]).src === assetUrl(originalCover.src), 'An empty dish entry uses its existing group cover');
+                    assert(await until(() => dishPhoto(named[4]).src === assetUrl(originalCover.src) && dishPhoto(named[4]).complete && dishPhoto(named[4]).naturalWidth > 0), 'A missing configured file recovers to the group cover');
+                    await checkViewer(dishPhoto(named[4]).parentElement, configurableGroup.vi + ' — ' + named[4], 'Recovered dish image', 'button', true);
+
+                    configurableGroup.items.reverse();
+                    doc.querySelector('[data-lang="en"]').click();
+                    loadNow();
+                    assert(rows()[0].querySelector('h3').textContent === originalItems.at(-1).en && Object.entries(configuredSources).every(([name, source]) => dishPhoto(name).src === source), 'Reordering dishes and changing language retain image identity by Vietnamese name');
+                    searchFor(originalItems[0].en);
+                    buttonFor(configurableGroup.id).click();
+                    await until(() => detail()?.dataset.menuDetail === configurableGroup.id);
+                    assert(dishPhoto(named[0]).src === configuredSources[named[0]], 'A searched dish retains its named photo configuration in the English detail');
+
+                    images.sections[configurableGroup.id] = { src: 'assets/menu-images/missing-group-cover.jpg', position: '1% 2%' };
+                    doc.querySelector('[data-lang="vi"]').click();
+                    loadNow();
+                    assert(await until(() => dishPhoto(named[4]).src === assetUrl('assets/menu-images/menu_hero.jpg') && dishPhoto(named[4]).complete && dishPhoto(named[4]).naturalWidth > 0), 'A missing dish image and missing group cover recover to the bundled generic photo');
+                    await checkViewer(dishPhoto(named[4]).parentElement, configurableGroup.vi + ' — ' + named[4], 'Generic fallback image', 'button', true);
+                } finally {
+                    dishImages.basePath = originalBasePath;
+                    dishImages.dishes[configurableGroup.id] = originalEntries;
+                    images.sections[configurableGroup.id] = originalCover;
+                    configurableGroup.items.splice(0, configurableGroup.items.length, ...originalItems);
+                    searchFor('');
+                    doc.querySelector('[data-lang="en"]').click();
+                }
+
+                // Reload verifies that a group hash works without prior JS state.
+                win.location.hash = '#menu/' + sampleGroup.id;
+                assert(await until(() => detail()?.dataset.menuDetail === sampleGroup.id), 'A direct group hash opens its detail');
+                const reloaded = new Promise(resolve => frame.addEventListener('load', resolve, { once: true }));
+                win.location.reload();
+                await reloaded;
+                adoptPage();
+                await wait(100);
+                checkDetail(sampleGroup, 'Reloading a direct group link');
+                assert(win.location.hash === '#menu/' + sampleGroup.id && doc.getElementById('menu-detail-title').textContent.includes(sampleGroup.en), 'Reload retains the shareable group and stored language');
+                assert(await backToCards(), 'A reloaded detail has a working return to the collection');
+                assert(groups().length === 48 && rows().length === 0, 'Returning from a deep link restores the full menu collection');
+                assert(doc.activeElement === buttons()[0], 'Returning from a reloaded detail focuses the first card when there is no saved origin');
+                doc.querySelector('[data-lang="vi"]').click();
+
+                const params = new URLSearchParams(location.search);
+                if (params.has('motion')) assert(win.matchMedia('(prefers-reduced-motion: reduce)').matches === (params.get('motion') === 'reduce'), 'Runner emulates the requested motion preference');
+                if (params.has('coarse')) assert(win.matchMedia('(hover: none) and (pointer: coarse)').matches, 'Touch input emulation is active');
+                if (params.has('fine')) assert(win.matchMedia('(hover: hover) and (pointer: fine)').matches, 'Mouse input emulation is active');
+            } catch (error) { assert(false, error.stack || String(error)); }
+            const result = document.getElementById('result');
+            result.dataset.status = checks.every(check => check.pass) ? 'pass' : 'fail';
+            result.textContent = JSON.stringify({ status: result.dataset.status, checks }, null, 2);
+        }
+        frame.addEventListener('load', runChecks, { once: true });
+        frame.src = '../menu/index.html';
+    </script>
+</body>
+</html>

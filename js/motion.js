@@ -26,7 +26,7 @@
     '.occasion-grid article', '.about-occasions > .container > .btn',
     '.service-entry > .service-visual', '.service-entry > .service-details > *',
     '.scene',
-    '.menu-controls', '.menu-summary', '.menu-section-heading', '.menu-section-row', '.menu-notes'
+    '.menu-controls', '.menu-summary', '.menu-notes'
   ];
   const headlineSelectors = '.hero h1, .inner-hero h1, .section-heading h2, .display-heading, .crab-title-block h2, .quality-inner h2, .gatherings-service-heading, .gatherings-price-range, .journey-year, .about-feature-copy h2, .about-season-text h2';
   const imageSelectors = '.hero-visual-frame, .inner-hero-visual, .food-gallery-item, .live-seafood-grid figure, .gatherings-photo, .space-preview-images figure, .about-cuisine-photos figure, .about-season-image, .scene, .service-visual';
