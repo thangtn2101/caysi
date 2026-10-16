@@ -29,6 +29,36 @@
                 if (motion) assert(reduced === (motion === 'reduce'), 'Runner emulates the requested motion preference');
                 assert(doc.documentElement.classList.contains('lenis'), 'Lenis is active in every motion mode');
                 assert(win.getComputedStyle(doc.documentElement).scrollBehavior === 'auto', 'Native smoothing does not compete with Lenis');
+                const mapsLink = doc.querySelector('.location-map-label-restaurant a');
+                const nativeNavigations = [], markerPopups = [];
+                const originalOpen = win.open;
+                const interceptNavigation = event => { nativeNavigations.push(mapsLink.href); event.preventDefault(); };
+                mapsLink.addEventListener('click', interceptNavigation);
+                win.open = url => { markerPopups.push(url); return null; };
+                try {
+                    mapsLink.click();
+                    assert(nativeNavigations.length + markerPopups.length === 1, 'Clicking the restaurant tooltip opens Google Maps exactly once');
+                    assert(nativeNavigations[0] === 'https://maps.app.goo.gl/CpoA21k35gx5jTNG6' && mapsLink.target === '_blank', 'Tooltip preserves its native Google Maps link');
+                    doc.querySelector('.location-marker-restaurant').click();
+                    assert(markerPopups.length === 1, 'Clicking the restaurant pin still opens Google Maps once');
+                } finally {
+                    mapsLink.removeEventListener('click', interceptNavigation);
+                    win.open = originalOpen;
+                }
+                assert(!doc.querySelector('.review-section, [data-demo-review]'), 'Home no longer displays the demo reviews');
+                const gatherings = doc.querySelector('.home-gatherings');
+                assert(!!gatherings?.querySelector('a[href="./menu/#set-menu"].btn-gradient'), 'Group dining introduction links straight to Set menu');
+                assert(!!gatherings?.querySelector('a[href="./services/"]'), 'Group dining introduction links to Services');
+                const expectedDishes = ['Cua hoàng đế', 'Tôm hùm nướng phô mai', 'Cá mú hấp Hồng Kông', 'Bạch tuộc nướng muối ớt', 'Lẩu cá đuối', 'Sò điệp nướng phô mai', 'Hàu sữa đại dương nướng', 'Ốc giác nướng mỡ hành'];
+                const galleryNames = () => Array.from(doc.querySelectorAll('.food-collage figcaption strong'), el => el.textContent.trim());
+                const featuredNames = () => Array.from(doc.querySelectorAll('#featured-menu-items h3'), el => el.textContent.trim());
+                doc.querySelector('[data-lang="vi"]').click();
+                assert(JSON.stringify(galleryNames()) === JSON.stringify(expectedDishes), 'Gallery lists all eight requested Vietnamese dishes in order');
+                assert(JSON.stringify(featuredNames()) === JSON.stringify(expectedDishes), 'Suggested menu lists the same eight requested dishes');
+                doc.querySelector('[data-lang="en"]').click();
+                assert(galleryNames()[0] === 'King crab' && JSON.stringify(galleryNames()) === JSON.stringify(featuredNames()), 'English dish names stay consistent across both sections');
+                assert(gatherings.querySelector('.btn-gradient span').textContent === 'View set menus', 'New Set menu call to action translates into English');
+                doc.querySelector('[data-lang="vi"]').click();
                 const figures = Array.from(doc.querySelectorAll('main figure')).filter(el => el.querySelector('img'));
                 assert(figures.length >= 15, 'All three Home figure galleries are present');
                 assert(figures.every(el => el.querySelector('.image-viewer-trigger')), 'Every Home figure has a viewer control');

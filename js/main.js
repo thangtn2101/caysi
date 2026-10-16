@@ -5,6 +5,7 @@
     const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
     const dictionary = window.CAYSI_I18N || {};
     const menu = window.CAYSI_MENU || [];
+    const homeDishes = window.CAYSI_HOME_DISHES || [];
     const cats = window.CAYSI_CATEGORIES || [];
     const notes = window.CAYSI_MENU_NOTES || [];
     let lang = 'vi';
@@ -35,10 +36,9 @@
         $$('[data-placeholder-i18n]').forEach(el => el.setAttribute('placeholder', word(el.dataset.placeholderI18n)));
         $$('[data-cat]').forEach(el => { const cat = cats.find(c => c.id === el.dataset.cat); if (cat) el.textContent = cat[lang]; });
         $$('.lang-btn').forEach(btn => { const active = btn.dataset.lang === lang; btn.classList.toggle('is-active', active); btn.setAttribute('aria-pressed', active ? 'true' : 'false'); });
-        $$('[data-review-text]').forEach(el => { el.textContent = '“' + word('reviewText' + el.dataset.reviewText) + '”'; });
-        $$('[data-review-time]').forEach(el => { el.textContent = word('reviewTime' + el.dataset.reviewTime); });
         // Keep Vietnamese and English captions consistent.
         $$('[data-dish-id]').forEach(el => { const [id, index] = el.dataset.dishId.split(':'); const group = menu.find(g => g.id === id); if (group) { const dish = group.items[Number(index)]; if (dish) el.textContent = dish[lang]; } });
+        $$('[data-home-dish]').forEach(el => { const dish = homeDishes.find(item => item.id === el.dataset.homeDish); if (dish) el.textContent = dish[lang]; });
     }
     function setLanguage(next) { lang = next === 'en' ? 'en' : 'vi'; storeLanguage(lang); translateDom(); renderFeatured(); renderMenu(); }
     function closeNav() { const toggle = $('#nav-toggle'), nav = $('#main-nav'); if (!toggle || !nav) return; toggle.setAttribute('aria-expanded', 'false'); toggle.setAttribute('aria-label', 'Open navigation'); nav.classList.remove('is-open'); }
@@ -57,9 +57,13 @@
     }
     function renderFeatured() {
         const target = $('#featured-menu-items'); if (!target) return;
-        const picks = [['hau', 0], ['ca-chim', 1], ['oc-mong-tay', 3], ['muc-sua', 0], ['lau', 0]];
         window.CAYSI_MOTION?.forgetWithin(target);
-        target.innerHTML = picks.map(([id, index]) => { const group = menu.find(g => g.id === id); if (!group) return ''; const item = group.items[index]; return `<article class="featured-item"><div><h3>${escapeHtml(item[lang])}</h3><small>${escapeHtml(item[lang === 'en' ? 'vi' : 'en'])}</small></div><div class="featured-price">${escapeHtml(prettyPrice(item.price || group.price))}</div></article>`; }).join('');
+        target.innerHTML = homeDishes.map(dish => {
+            const group = menu.find(item => item.id === dish.menuRef?.groupId);
+            const item = group?.items[dish.menuRef?.itemIndex];
+            const price = dish.price || (item ? item.price || group.price : null);
+            return `<article class="featured-item"><div><h3>${escapeHtml(dish[lang])}</h3><small>${escapeHtml(dish[lang === 'en' ? 'vi' : 'en'])}</small></div><div class="featured-price">${escapeHtml(price ? prettyPrice(price) : word('marketPrice'))}</div></article>`;
+        }).join('');
     }
     function matchDish(d, g) { if (!query) return true; return normalize([d.vi, d.en, g.vi, g.en].join(' ')).includes(query); }
     function renderMenu() {

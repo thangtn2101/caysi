@@ -14,22 +14,30 @@
         const isRestaurant = className === 'location-marker-restaurant';
         const icon = L.divIcon({
             className: 'location-marker ' + className,
-            html: '<span class="location-pin"><span>' + glyph + '</span></span>',
-            iconSize: isRestaurant ? [72, 87] : [52, 64],
-            iconAnchor: isRestaurant ? [36, 87] : [26, 64],
-            tooltipAnchor: isRestaurant ? [0, -96] : [0, -70]
+            html: '<span class="location-pin"><span>' + glyph + '</span></span>' +
+                (isRestaurant ? '<span class="location-marker-dot" aria-hidden="true"></span>' : ''),
+            iconSize: isRestaurant ? [72, 100] : [52, 64],
+            iconAnchor: isRestaurant ? [36, 96] : [26, 64],
+            tooltipAnchor: isRestaurant ? [0, -106] : [0, -70]
         });
-        const marker = L.marker(position, { icon, title: name, alt: name }).addTo(map);
-        const label = document.createElement('a');
-        label.href = url;
-        label.target = '_blank';
-        label.rel = 'noopener noreferrer';
-        label.textContent = name + ' ↗';
-        marker.bindTooltip(label, { permanent: true, direction: 'top', interactive: true, className: 'location-map-label' });
-        marker.on('click', () => { window.open(url, '_blank', 'noopener,noreferrer'); });
+        const marker = L.marker(position, { icon, title: name, alt: name, interactive: !!url, keyboard: !!url }).addTo(map);
+        const label = document.createElement(url ? 'a' : 'span');
+        if (url) {
+            label.href = url;
+            label.target = '_blank';
+            label.rel = 'noopener noreferrer';
+            // Let the link navigate without also triggering the marker's click handler.
+            label.addEventListener('click', event => event.stopPropagation());
+        }
+        label.textContent = name + (url ? ' ↗' : '');
+        marker.bindTooltip(label, {
+            permanent: true, direction: 'top', interactive: !!url, opacity: 1,
+            className: 'location-map-label' + (isRestaurant ? ' location-map-label-restaurant' : '')
+        });
+        if (url) marker.on('click', () => { window.open(url, '_blank', 'noopener,noreferrer'); });
     };
     addMarker(restaurant, 'location-marker-restaurant', 'Cây Si Quán', 'https://maps.app.goo.gl/CpoA21k35gx5jTNG6', 'C');
-    addMarker(tower, 'location-marker-tower', 'Tháp Tam Thắng', 'https://maps.app.goo.gl/2wi2uvq4sn8wU88T6', '▥');
+    addMarker(tower, 'location-marker-tower', 'Tháp Tam Thắng', null, '▥');
     // Visual connector with the supplied distance, rather than a navigation route.
     const connection = [restaurant, tower];
     L.polyline(connection, { color: '#fff', weight: 8, opacity: 0.9, interactive: false }).addTo(map);
@@ -38,7 +46,11 @@
         .setLatLng([(restaurant[0] + tower[0]) / 2, (restaurant[1] + tower[1]) / 2])
         .setContent('↔ 300 m')
         .addTo(map);
-    const fit = () => map.fitBounds([restaurant, tower], { paddingTopLeft: [85, 155], paddingBottomRight: [85, 55], maxZoom: 16 });
+    const fit = () => map.fitBounds([restaurant, tower], {
+        // Leave room for the restaurant label below the zoom controls on narrow maps.
+        paddingTopLeft: [85, element.clientWidth < 600 ? 240 : 175],
+        paddingBottomRight: [85, 55], maxZoom: 16
+    });
     fit();
     element.querySelector('.location-fallback')?.remove();
     if (window.ResizeObserver) new ResizeObserver(() => { map.invalidateSize(); fit(); }).observe(element);

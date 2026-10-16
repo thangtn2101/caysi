@@ -957,38 +957,181 @@ button {
     font-weight: 700
 }
 
-/* REVIEWS */
-.review-grid {
+/* SET MENUS & GATHERINGS */
+.home-gatherings {
+    background: #fff
+}
+
+.home-gatherings .section-heading {
+    align-items: end;
+    gap: clamp(28px, 5vw, 65px);
+    margin-bottom: clamp(34px, 4vw, 54px)
+}
+
+.home-gatherings .section-heading>div:first-child {
+    flex: 1;
+    max-width: 1000px
+}
+
+.home-gatherings .section-title {
+    font-size: clamp(44px, 4.9vw, 68px);
+    line-height: 1.16
+}
+
+.gatherings-intro {
+    margin-top: 20px
+}
+
+.gatherings-services-grid {
     display: grid;
-    grid-template-columns: .9fr 1.1fr;
-    gap: clamp(55px, 11vw, 165px)
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(22px, 3vw, 40px)
 }
 
-.review-grid .eyebrow {
-    margin-bottom: 25px
+.gatherings-service {
+    min-width: 0
 }
 
-.review-placeholder {
-    padding: 35px 0 30px;
-    border-top: 1px solid #b7cdd8;
-    border-bottom: 1px solid #b7cdd8
+.gatherings-photo {
+    position: relative;
+    min-width: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--cream)
 }
 
-.review-stars {
-    font-size: 27px;
-    letter-spacing: 8px;
-    color: #7396b1
+.gatherings-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
 }
 
-.review-placeholder p {
-    margin: 28px 0;
+.gatherings-service-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    padding-top: 22px;
+    margin-top: 4px
+}
+
+.gatherings-ordinal {
+    flex: 0 0 auto;
+    color: #7393a3;
+    font-size: 10px;
+    letter-spacing: .12em
+}
+
+.gatherings-service-title {
+    color: var(--navy);
+    font: 400 clamp(23px, 2.3vw, 31px)/1.3 var(--serif);
+    letter-spacing: -.035em
+}
+
+.gatherings-menu-band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-top: clamp(38px, 5vw, 64px);
+    padding: clamp(26px, 3.2vw, 42px);
+    background: #f1f7f7;
+    border-top: 1px solid #d5e6e7;
+    border-bottom: 1px solid #d5e6e7
+}
+
+.gatherings-menu-copy {
+    min-width: 0
+}
+
+.gatherings-menu-copy>.eyebrow {
+    margin-bottom: 12px
+}
+
+.gatherings-price-range {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+    color: var(--navy)
+}
+
+.gatherings-price-range strong {
+    font: 400 clamp(31px, 3.3vw, 45px)/1.2 var(--serif);
+    letter-spacing: -.045em
+}
+
+.gatherings-price-range>span {
+    white-space: nowrap;
+    font-size: 12px
+}
+
+.gatherings-menu-note {
+    margin-top: 10px;
     color: var(--muted);
-    line-height: 2;
-    font-size: 15px
+    font-size: 13px;
+    line-height: 1.8
 }
 
-.review-placeholder .editorial-link {
-    font-size: 10px
+.gatherings-menu-band .hero-actions {
+    flex: 0 0 auto;
+    margin-top: 0;
+    justify-content: flex-end
+}
+
+@media (max-width: 940px) {
+    .home-gatherings .section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 22px
+    }
+
+    .gatherings-menu-band {
+        align-items: start;
+        flex-direction: column;
+        gap: 25px
+    }
+
+    .gatherings-menu-band .hero-actions {
+        justify-content: start
+    }
+}
+
+@media (max-width: 700px) {
+    .gatherings-services-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px
+    }
+
+    .gatherings-photo {
+        aspect-ratio: 16 / 10
+    }
+
+    .gatherings-service-heading {
+        padding-top: 16px
+    }
+
+    .gatherings-service-title {
+        font-size: clamp(26px, 5.4vw, 32px)
+    }
+}
+
+@media (max-width: 600px) {
+    .home-gatherings .section-title {
+        font-size: clamp(39px, 9vw, 52px)
+    }
+
+    .gatherings-menu-band .hero-actions {
+        width: 100%;
+        align-items: stretch;
+        flex-direction: column
+    }
+
+    .gatherings-menu-band .hero-actions .btn {
+        flex: 0 0 auto;
+        width: 100%;
+        font-size: 11px
+    }
 }
 
 /* SPACE PREVIEW */
@@ -1118,16 +1261,16 @@ button {
     font-size: 38px;
 }
 
-.location-marker-restaurant::before {
-    content: '';
+.location-marker-dot {
     position: absolute;
-    width: 96px;
-    height: 26px;
-    left: -12px;
-    bottom: -12px;
-    border: 2px solid #e7353f66;
+    width: 8px;
+    height: 8px;
+    left: 50%;
+    top: 92px;
+    transform: translateX(-50%);
     border-radius: 50%;
-    background: #e7353f15;
+    background: #e7353f;
+    box-shadow: 0 0 0 2px #fff;
 }
 
 .location-marker-tower .location-pin {
@@ -1137,6 +1280,10 @@ button {
     height: 42px;
     left: 5px;
     top: 10px;
+}
+
+.location-marker-tower .location-pin>span {
+    font-size: 18px;
 }
 
 .location-map-label.leaflet-tooltip {
@@ -1150,6 +1297,32 @@ button {
 
 .location-map-label a:focus-visible {
     outline-offset: 1px;
+}
+
+.location-map-label-restaurant.leaflet-tooltip {
+    z-index: 2;
+    padding: 12px 18px;
+    border: 2px solid #fff;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #d52b3e, #b21f32);
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.4;
+    box-shadow: 0 7px 22px #9d182f40, 0 2px 6px #15263a26;
+}
+
+.location-map-label-restaurant.leaflet-tooltip-top::before {
+    border-top-color: #b21f32;
+}
+
+.location-map-label-restaurant a {
+    color: inherit;
+}
+
+.location-map-label-restaurant a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+    border-radius: 2px;
 }
 
 .location-distance-label.leaflet-tooltip {
@@ -1180,6 +1353,11 @@ button {
     .location-map-label.leaflet-tooltip {
         font-size: 11px;
         padding: 8px 10px;
+    }
+
+    .location-map-label-restaurant.leaflet-tooltip {
+        font-size: 14px;
+        padding: 10px 15px;
     }
 }
 
@@ -2279,11 +2457,6 @@ button {
         font-size: clamp(29px, 6vw, 46px)
     }
 
-    .review-grid {
-        grid-template-columns: 1fr;
-        gap: 36px
-    }
-
     .space-preview-grid {
         grid-template-columns: 1fr;
         gap: 33px
@@ -2757,7 +2930,6 @@ button {
 }
 
 .category-tile,
-.review-card,
 .occasion-grid article {
     transition: transform var(--motion-hover) var(--motion-ease), box-shadow var(--motion-hover) var(--motion-ease), background var(--motion-hover) ease
 }
@@ -2969,70 +3141,6 @@ button {
     color: #fff;
     font-family: var(--serif);
     font-size: clamp(20px, 2.4vw, 34px)
-}
-
-/* Review cards: explicitly labelled sample entries. */
-.review-section .review-cards {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px
-}
-
-.review-card {
-    background: #fff;
-    border: 1px solid #dce8ea;
-    padding: 27px 26px 23px;
-    display: flex;
-    flex-direction: column;
-    min-height: 272px
-}
-
-.review-card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px
-}
-
-.review-rating {
-    color: #df9b38;
-    font-size: 18px;
-    letter-spacing: .045em;
-    white-space: nowrap
-}
-
-.review-card time {
-    color: #7e8c95;
-    font-size: 10px;
-    white-space: nowrap
-}
-
-.review-card blockquote {
-    color: #40566a;
-    font-size: 13px;
-    line-height: 1.9;
-    flex: 1;
-    margin: 20px 0 26px
-}
-
-.review-author {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    font-size: 12px;
-    color: var(--navy)
-}
-
-.review-avatar {
-    width: 31px;
-    height: 31px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: #e8f4f6;
-    color: #347eae;
-    font-size: 10px;
-    font-weight: 700
 }
 
 /* Larger four-image preview: imagery is food, not claimed venue photos. */
@@ -3346,10 +3454,6 @@ button {
 
 /* Responsive overrides specifically for the enhanced layouts. */
 @media(max-width:1024px) {
-    .review-section .review-cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr))
-    }
-
     .about-year-layout {
         gap: 34px
     }
@@ -3405,15 +3509,6 @@ button {
     .live-seafood-grid figure:first-child {
         grid-column: 1/-1;
         grid-row: 1
-    }
-
-    .review-section .review-cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 11px
-    }
-
-    .review-card {
-        padding: 22px 19px
     }
 
     .space-preview-images {
@@ -3520,15 +3615,6 @@ button {
         left: 13px;
         bottom: 13px;
         font-size: 17px
-    }
-
-    .review-section .review-cards {
-        grid-template-columns: 1fr
-    }
-
-    .review-card {
-        min-height: 0;
-        padding: 25px
     }
 
     .space-preview-images {
@@ -3716,7 +3802,6 @@ html[data-motion-mode="soft-fade"].caysi-motion-ready .caysi-reveal.is-visible {
 }
 
 .category-tile,
-.review-card,
 .occasion-grid article,
 .food-gallery-item {
     transition: transform 550ms var(--caysi-silk),
@@ -3821,7 +3906,6 @@ html[data-motion-mode="soft-fade"].caysi-motion-ready .caysi-reveal.is-visible {
         color: var(--ocean);
     }
 
-    .review-card:hover,
     .occasion-grid article:hover {
         transform: translateY(-7px);
         box-shadow: 0 21px 48px rgba(7, 38, 90, .13);
@@ -3889,7 +3973,6 @@ html[data-motion-mode="soft-fade"].caysi-motion-ready .caysi-reveal.is-visible {
     .header-book,
     .filter-btn,
     .category-tile,
-    .review-card,
     .occasion-grid article,
     .food-gallery-item,
     .floating-contact a {
@@ -3900,7 +3983,7 @@ html[data-motion-mode="soft-fade"].caysi-motion-ready .caysi-reveal.is-visible {
         display: none;
     }
 
-    :is(.btn, .header-book, .filter-btn, .category-tile, .review-card, .occasion-grid article, .food-gallery-item, .floating-contact a):is(:hover, :focus-visible, :active),
+    :is(.btn, .header-book, .filter-btn, .category-tile, .occasion-grid article, .food-gallery-item, .floating-contact a):is(:hover, :focus-visible, :active),
     .category-tile:is(:hover, :focus-visible) .category-icon,
     .editorial-link:hover .round-arrow,
     .text-link:hover>span:last-child,

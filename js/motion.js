@@ -13,7 +13,7 @@
     '.category-tile', '.food-gallery-item', '.food-gallery-quote',
     '.featured-menu-grid > div:first-child > *', '.featured-item',
     '.quality-inner > .eyebrow', '.quality-inner > h2', '.quality-inner > .quality-line',
-    '.live-seafood-grid figure', '.review-card',
+    '.live-seafood-grid figure', '.gatherings-photo', '.gatherings-service-heading', '.gatherings-menu-copy > *',
     '.space-preview-content > *', '.space-preview-images figure',
     '.contact-layout > div:first-child > *', '.contact-info-row',
     '.inner-hero .eyebrow', '.inner-hero h1', '.inner-hero p', '.inner-hero .btn',
@@ -28,9 +28,9 @@
     '.scene',
     '.menu-controls', '.menu-summary', '.menu-section-heading', '.menu-section-row', '.menu-notes'
   ];
-  const headlineSelectors = '.hero h1, .inner-hero h1, .section-heading h2, .display-heading, .crab-title-block h2, .quality-inner h2, .journey-year, .about-feature-copy h2, .about-season-text h2';
-  const imageSelectors = '.hero-visual-frame, .inner-hero-visual, .food-gallery-item, .live-seafood-grid figure, .space-preview-images figure, .about-cuisine-photos figure, .about-season-image, .scene, .service-visual';
-  const cardSelectors = '.category-tile, .review-card, .occasion-grid article, .featured-item, .crab-feature-inner > img, .about-photo-wrap, .about-feature-art';
+  const headlineSelectors = '.hero h1, .inner-hero h1, .section-heading h2, .display-heading, .crab-title-block h2, .quality-inner h2, .gatherings-service-heading, .gatherings-price-range, .journey-year, .about-feature-copy h2, .about-season-text h2';
+  const imageSelectors = '.hero-visual-frame, .inner-hero-visual, .food-gallery-item, .live-seafood-grid figure, .gatherings-photo, .space-preview-images figure, .about-cuisine-photos figure, .about-season-image, .scene, .service-visual';
+  const cardSelectors = '.category-tile, .occasion-grid article, .featured-item, .crab-feature-inner > img, .about-photo-wrap, .about-feature-art';
   const tracked = new Set();
   const timers = new Map();
   const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)');

@@ -184,7 +184,7 @@ test('fallback timer uses computed units, repeated lists, and only entrance prop
 });
 
 test('opacity transitionend cleans up; pseudo-element and other property events do not', () => {
-  const el = element('.review-card');
+  const el = element('.featured-item');
   const h = harness([el]);
   h.frame();
   h.observers[0].intersect(el);

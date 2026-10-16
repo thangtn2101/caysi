@@ -81,7 +81,8 @@ window.CAYSI_I18N = {
         // Home / Thực đơn gợi ý
         menuLabel: "04 / MÓN NGON GỢI Ý",
         menuTitle: "Những hương vị để nhớ.",
-        menuText: "Một vài lựa chọn từ thực đơn Cây Si, với giá tham khảo theo menu bạn cung cấp.",
+        menuText: "Từ cua hoàng đế, tôm hùm đến lẩu cá đuối, cùng khám phá những món hải sản nổi bật tại Cây Si.",
+        priceOnRequest: "Liên hệ",
 
         // Home / Cam kết nguyên liệu
         qualityLabel: "CAM KẾT NGUYÊN LIỆU",
@@ -95,24 +96,18 @@ window.CAYSI_I18N = {
         liveStep2: "02 / Chế biến theo yêu cầu",
         liveStep3: "03 / Thưởng thức cùng nhau",
 
-        // Home / Đánh giá khách hàng
-        reviewLabel: "GÓC ĐÁNH GIÁ · DỮ LIỆU DEMO",
-        reviewTitle: "Thực khách chia sẻ.",
-        reviewPending: "Đánh giá thực tế của khách hàng sẽ được cập nhật tại đây sau khi xác minh. Trong thời gian này, bạn có thể xem hoạt động và tương tác trên trang Facebook chính thức của Cây Si.",
-        reviewsLink: "Xem Facebook Cây Si",
-        reviewDemoDisclosure: "6 nội dung đánh giá minh họa để xem trước giao diện — chưa được kiểm chứng, không phải đánh giá xác thực của khách hàng.",
-        reviewText1: "Năm nào đi VT tôi cũng ghé ăn, đồ ăn ngon, nv thân thiện , nhiệt tình",
-        reviewTime1: "5 ngày trước",
-        reviewText2: "Hải sản tươi, món ăn ngon và không gian khá thoải mái. Mình đi cùng gia đình, đồ lên tương đối nhanh, nhân viên nhiệt tình. Giá hợp lý so với chất lượng. Có dịp đến Vũng Tàu sẽ quay lại.",
-        reviewTime2: "3 ngày trước",
-        reviewText3: "Quay lại ăn lần 2 là đủ hiểu độ ngon của quán nha Quán bây h đã khắc phục đc rất nhìu và view gần tháp tam thắng xứng đáng trải nghiệm",
-        reviewTime3: "5 ngày trước",
-        reviewText4: "Không gian quán rộng rãi, thoáng mát và khá dễ chịu, đây là điểm mình thích nhất. Đồ ăn ngon, phục vụ ổn.",
-        reviewTime4: "5 ngày trước",
-        reviewText5: "Bữa ăn hải sản vui vẻ cùng bạn bè. Món nướng thơm ngon và có nhiều lựa chọn trong thực đơn.",
-        reviewTime5: "1 tuần trước",
-        reviewText6: "Mình thích các món nghêu sò và lẩu. Sẽ rủ cả nhà quay lại vào chuyến Vũng Tàu tiếp theo.",
-        reviewTime6: "2 tuần trước",
+        // Home / Set menu và dịch vụ
+        gatheringsLabel: "DỊCH VỤ CÂY SI",
+        gatheringsTitle: "Dịch vụ đặt tiệc và Khách đoàn",
+        gatheringsIntro: "Tại Cây Si, chúng tôi cung cấp các dịch vụ:",
+        gatheringsMenuLabel: "THAM KHẢO SET MENU",
+        gatheringsPrice: "185.000–260.000đ",
+        gatheringsPriceUnit: "/khách",
+        gatheringsCount: "8 mức giá để lựa chọn.",
+        gatheringsService1: "Tiệc gia đình & kỷ niệm",
+        gatheringsService2: "Cơm khách đoàn",
+        gatheringsService3: "Tiệc tiếp khách & đối tác",
+        gatheringsServicesLink: "Khám phá dịch vụ",
 
         // Home / Giới thiệu không gian
         spaceLabel: "05 / NƠI MỌI NGƯỜI GẶP NHAU",
@@ -330,7 +325,8 @@ window.CAYSI_I18N = {
         // Home / Thực đơn gợi ý
         menuLabel: "04 / A TASTE OF THE MENU",
         menuTitle: "Dishes to remember.",
-        menuText: "A few tempting picks from Cây Si’s supplied menu, with listed prices.",
+        menuText: "From king crab and lobster to stingray hot pot, discover some of Cây Si’s standout seafood dishes.",
+        priceOnRequest: "Enquire",
 
         // Home / Cam kết nguyên liệu
         qualityLabel: "OUR INGREDIENT COMMITMENT",
@@ -344,24 +340,18 @@ window.CAYSI_I18N = {
         liveStep2: "02 / Prepared to your liking",
         liveStep3: "03 / Enjoy it together",
 
-        // Home / Đánh giá khách hàng
-        reviewLabel: "GUEST STORIES · DEMO CONTENT",
-        reviewTitle: "Words around the table.",
-        reviewPending: "Verified customer reviews will appear here once they become available. For now, explore Cây Si’s official Facebook page for updates and guest interactions.",
-        reviewsLink: "Visit Cây Si on Facebook",
-        reviewDemoDisclosure: "Six illustrative review examples for interface preview only. These are unverified sample entries, not authenticated customer reviews.",
-        reviewText1: "Every year I visit Vũng Tàu, I stop by. Delicious food and friendly, attentive staff.",
-        reviewTime1: "5 days ago",
-        reviewText2: "Fresh seafood, tasty dishes and a comfortable setting. My family enjoyed the meal, service was attentive and prices were fair. Would return.",
-        reviewTime2: "3 days ago",
-        reviewText3: "Coming back a second time says it all. The restaurant has improved a lot, and its location near Tháp Tam Thắng makes it worth a visit.",
-        reviewTime3: "5 days ago",
-        reviewText4: "Spacious, airy and comfortable — that was my favorite part. Good food and pleasant service.",
-        reviewTime4: "5 days ago",
-        reviewText5: "A lovely seafood meal with friends. Tasty grilled dishes and plenty of choices on the menu.",
-        reviewTime5: "1 week ago",
-        reviewText6: "I enjoyed the clams and hot pot. I would bring the family back on our next Vũng Tàu trip.",
-        reviewTime6: "2 weeks ago",
+        // Home / Set menu và dịch vụ
+        gatheringsLabel: "CÂY SI SERVICES",
+        gatheringsTitle: "Event bookings and group dining",
+        gatheringsIntro: "At Cây Si, we offer the following services:",
+        gatheringsMenuLabel: "EXPLORE OUR SET MENUS",
+        gatheringsPrice: "185,000–260,000 VND",
+        gatheringsPriceUnit: "/guest",
+        gatheringsCount: "8 price options to choose from.",
+        gatheringsService1: "Family parties & anniversaries",
+        gatheringsService2: "Group dining",
+        gatheringsService3: "Business & partner dining",
+        gatheringsServicesLink: "Explore our services",
 
         // Home / Giới thiệu không gian
         spaceLabel: "05 / WHERE PEOPLE COME TOGETHER",
