@@ -4023,6 +4023,8 @@ html[data-motion-mode="soft-fade"].caysi-motion-ready .caysi-reveal.is-visible {
 }
 
 .image-viewer-trigger {
+    box-sizing: border-box;
+    appearance: none;
     position: absolute;
     top: 8px;
     right: 8px;
@@ -4032,18 +4034,25 @@ html[data-motion-mode="soft-fade"].caysi-motion-ready .caysi-reveal.is-visible {
     width: 28px;
     height: 28px;
     padding: 0;
-    border: 1px solid #ffffff40;
+    border: 0;
     border-radius: 50%;
-    background: #15263a26;
-    color: #ffffffbf;
+    background: rgb(0 0 0 / 60%);
+    color: #fff;
     font-size: 18px;
     line-height: 1;
     transition: background-color 180ms ease, color 180ms ease;
 }
 
+.image-viewer-trigger svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
 .image-viewer-trigger:hover,
 .image-viewer-trigger:focus-visible {
-    background: #15263a66;
+    background: rgb(0 0 0 / 60%);
     color: #fff;
 }
 
@@ -4748,15 +4757,12 @@ html.lenis {
     right: 10px;
     width: 36px;
     height: 36px;
-    border-color: #ffffffb3;
-    background: #fffffff0;
-    color: var(--navy);
     font-size: 20px;
 }
 
 #individual-menu .image-viewer-trigger:hover,
 #individual-menu .image-viewer-trigger:focus-visible {
-    background: var(--navy);
+    background: rgb(0 0 0 / 60%);
     color: #fff;
 }
 
@@ -4785,21 +4791,12 @@ html.lenis {
     left: 18px;
     display: inline-flex;
     align-items: center;
-    gap: 7px;
     padding: 10px 13px;
     border-radius: 100px;
-    background: rgba(255, 255, 255, .96);
+    background: rgb(0 0 0 / 60%);
     box-shadow: 0 4px 16px rgba(0, 0, 0, .06);
-    color: var(--navy);
+    color: #fff;
     font: 700 11px/1.5 var(--sans);
-}
-
-.menu-section-meta::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--ocean);
 }
 
 .menu-section-footer {
@@ -5040,6 +5037,19 @@ html.lenis {
 }
 
 @media (max-width: 600px) {
+    .image-viewer-trigger,
+    #individual-menu .image-viewer-trigger {
+        top: 6px;
+        right: 6px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .image-viewer-trigger svg {
+        width: 14px;
+        height: 14px;
+    }
+
     #individual-menu .menu-collection {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 5px;
@@ -5071,20 +5081,13 @@ html.lenis {
     .menu-section-meta {
         top: 10px;
         left: 10px;
-        gap: 5px;
         padding: 5px 8px;
         font-size: 10px;
     }
 
-    .menu-section-meta::before {
-        width: 4px;
-        height: 4px;
-    }
-
     .menu-section-footer {
-        min-height: 42px;
-        margin-top: 10px;
-        padding-top: 9px;
+        margin-top: 8px;
+        padding-top: 8px;
     }
 
     #individual-menu .menu-section-price {

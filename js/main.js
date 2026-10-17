@@ -167,7 +167,7 @@
             </header>
             <div class="menu-section-dishes" id="menu-dishes-${id}">${group.items.map((dish, itemIndex) => {
                 const price = dish.price || group.price;
-                return `<article class="menu-section-row"><div class="menu-dish-photo">${menuImage(group, { ...dish, itemIndex })}</div><div class="dish-label"><h3>${escapeHtml(dish[lang])}</h3><small>${escapeHtml(dish[lang === 'en' ? 'vi' : 'en'])}</small></div>${price ? `<p class="dish-price">${escapeHtml(prettyPrice(price))}</p>` : ''}</article>`;
+                return `<article class="menu-section-row"><div class="menu-dish-photo">${menuImage(group, { ...dish, itemIndex })}</div><div class="dish-label"><h3>${escapeHtml(dish[lang])}</h3></div>${price ? `<p class="dish-price">${escapeHtml(prettyPrice(price))}</p>` : ''}</article>`;
             }).join('')}</div>
         </section>`;
     }
@@ -187,7 +187,7 @@
                 <div class="menu-section-heading">
                     <div class="menu-section-cover">${menuImage(g)}<span class="menu-section-meta">${g.items.length} ${escapeHtml(word('menuGroupCount'))}</span></div>
                     <div class="menu-section-heading-copy">
-                        <h2 class="menu-section-title" id="menu-heading-${id}">${escapeHtml(g[lang])}</h2><small>${escapeHtml(g[lang === 'en' ? 'vi' : 'en'])}</small>
+                        <h2 class="menu-section-title" id="menu-heading-${id}">${escapeHtml(g[lang])}</h2>
                         <div class="menu-section-footer">${menuCardPrice(g.price)}</div>
                         <button class="editorial-link menu-section-view" type="button" data-menu-section="${id}" aria-label="${escapeHtml(word('menuViewDishes') + ': ' + g[lang])}"><span>${escapeHtml(word('menuViewDishes'))}</span><span class="round-arrow" aria-hidden="true">↗</span></button>
                     </div>
@@ -272,7 +272,7 @@
             trigger.className = 'image-viewer-trigger';
             trigger.setAttribute('aria-haspopup', 'dialog');
             trigger.setAttribute('aria-controls', viewer.id);
-            trigger.textContent = '\u2922';
+            trigger.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-7 7M4 14v6h6M4 20l7-7"/></svg>';
             trigger.setAttribute('aria-label', lang === 'en' ? 'View full image' : 'Xem \u1ea3nh \u0111\u1ea7y \u0111\u1ee7');
             frame.classList.add('image-viewer-frame');
             frame.append(trigger);

@@ -20,62 +20,60 @@ window.CAYSI_MENU_DISH_IMAGES = {
         },
         "ngheu": {
             "Nghêu hấp sả": "ngheu-hap-xa.png",
-            "Nghêu hấp Thái": "ngheu-hap-thai.png",
+            "Nghêu hấp Thái": "ngheu-hap-thai.jpg",
             "Nghêu xào mỡ hành": "ngheu-xao-mo-hanh.jpg",
-            "Nghêu xào lá quế": ""
+            "Nghêu xào lá quế": "ngheu-xao-la-que.jpg",
         },
         "lau": {
             "Lẩu hải sản": "lau-hai-san.jpg",
-            "Lẩu cá đuối": {
-                "src": "assets/hotpot.jpg"
-            },
-            "Lẩu cá bớp": "",
-            "Lẩu cá chim": "",
-            "Lẩu cá mú": "",
-            "Lẩu Thái": ""
+            "Lẩu cá đuối": "",
+            "Lẩu cá bớp": "lau-ca-bop.webp",
+            "Lẩu cá chim": { "src": "/assets/menu-images/ca-chim.jpg" },
+            "Lẩu cá mú": { "src": "/assets/menu-images/ca-mu.jpg" },
+            "Lẩu Thái": "lau-thai.jpg"
         },
         "hau": {
-            "Hàu nướng mỡ hành": "",
-            "Hàu nướng mọi": "",
-            "Hàu nướng phô mai": "",
+            "Hàu nướng mỡ hành": "hau-nuong-mo-hanh.jpg",
+            "Hàu nướng mọi": "hau-nuong-moi.jpg",
+            "Hàu nướng phô mai": "hau-nuong-pho-mai.jpg",
             "Hàu ăn sống + mù tạt": ""
         },
         "ngheu-2-coi": {
-            "Nghêu 2 còi hấp sả": "",
-            "Nghêu 2 còi hấp Thái": ""
+            "Nghêu 2 còi hấp sả": "ngheu-2-coi-hap-sa.jpg",
+            "Nghêu 2 còi hấp Thái": "ngheu-2-coi-hap-thai.png",
         },
         "ca-chim": {
-            "Cá chim nướng mỡ hành": "",
+            "Cá chim nướng mỡ hành": "ca-chim-nuong-mo-hanh.jpg",
             "Cá chim nướng muối ớt": "ca-chim-nuong-muoi-ot.jpg",
-            "Cá chim chiên giòn": "",
-            "Cá chim hấp Hong Kong": "",
-            "Cá chim sốt cà chua": ""
+            "Cá chim chiên giòn": "ca-chim-chien-gion.png",
+            "Cá chim hấp Hong Kong": "ca-chim-hap-hong-kong.jpg",
+            "Cá chim sốt cà chua": "ca-chim-sot-ca-chua.jpg"
         },
         "ca-saba": {
-            "Cá saba nướng mỡ hành": "",
-            "Cá saba nướng muối ớt": "",
-            "Cá saba chiên giòn": ""
+            "Cá saba nướng mỡ hành": "ca-saba-nuong-mo-hanh.jpg",
+            "Cá saba nướng muối ớt": "ca-saba-nuong-muoi-ot.png",
+            "Cá saba chiên giòn": "ca-saba-chien-gion.webp"
         },
         "ca-duoi": {
-            "Cá đuối hấp mỡ hành": "",
-            "Cá đuối nướng muối ớt": "",
+            "Cá đuối hấp mỡ hành": "ca-duoi-hap-mo-hanh.webp",
+            "Cá đuối nướng muối ớt": "ca-duoi-nuong-muoi-ot.jpg",
             "Lẩu cá đuối măng chua": {
                 "src": "assets/hotpot.jpg"
             }
         },
         "mi-mien": {
-            "Mì xào bò": "",
+            "Mì xào bò": "mi-xao-bo.jpg",
             "Mì xào hải sản": "",
-            "Mì xào rau": "",
-            "Miến xào cua": "",
-            "Miến xào hải sản": ""
+            "Mì xào rau": "mi-xao-rau.webp",
+            "Miến xào cua": "mien-xao-cua.jpg",
+            "Miến xào hải sản": "mien-xao-hai-san.jpg",
         },
         "khai-vi": {
             "Nấm biển (Đặc sản Cây Si)": "",
-            "Chả giò chiên": "",
-            "Cá trứng chiên": "",
-            "Xúc xích chiên": "",
-            "Khoai tây chiên": ""
+            "Chả giò chiên": "cha-gio-chien.jpg",
+            "Cá trứng chiên": "ca-trung-chien.jpg",
+            "Xúc xích chiên": "xuc-xich-chien.jpg",
+            "Khoai tây chiên": "khoai-tay-chien.webp"
         },
         "hai-san-mot-nang": {
             "Khô cá chỉ vàng": "",
@@ -91,70 +89,72 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Súp bào ngư": ""
         },
         "oc-mong-tay": {
-            "Ốc móng tay hấp": "",
-            "Ốc móng tay xào mỡ hành": "",
+            "Ốc móng tay hấp": "oc-mong-tay-hap.jpg",
+            "Ốc móng tay xào mỡ hành": "oc-mong-tay-xao-mo-hanh.jpg",
             "Ốc móng tay xào tỏi": "",
-            "Ốc móng tay xào sa tế": "",
-            "Ốc móng tay xào rau muống": "",
-            "Ốc móng tay xào lá quế": "",
-            "Ốc móng tay xào me": ""
+            "Ốc móng tay xào sa tế": "oc-mong-tay-xao-sa-te.webp",
+            "Ốc móng tay xào rau muống": "oc-mong-tay-xao-rau-muong.jpg",
+            "Ốc móng tay xào lá quế": "oc-mong-tay-xa-la-que.jpg",
+            "Ốc móng tay xào me": "oc-mong-tay-xao-me.jpg"
         },
         "hau-sua": {
-            "Hàu sữa nướng mỡ hành": "",
-            "Hàu sữa nướng phô mai": ""
+            "Hàu sữa nướng mỡ hành": "hau-nuong-mo-hanh.jpg",
+            "Hàu sữa nướng phô mai": "hau-nuong-pho-mai.jpg"
         },
         "ca-song": {
-            "Cá sòng nướng mỡ hành": "",
-            "Cá sòng nướng muối ớt": "",
-            "Cá sòng nướng mọi": ""
+            "Cá sòng nướng mỡ hành": "ca-song-nuong-mo-hanh.jpg",
+            "Cá sòng nướng muối ớt": "ca-song-nuong-muoi-ot.jpg",
+            "Cá sòng nướng mọi": "ca-song-nuong-moi.jpg"
         },
         "ca-cam": {
             "Cá cam nướng mỡ hành": "",
-            "Cá cam nướng muối ớt": ""
+            "Cá cam nướng muối ớt": "ca-cam-nuong-muoi-ot.jpg"
         },
         "ca-mu": {
-            "Cá mú ăn sống + mù tạt": "",
+            "Cá mú ăn sống + mù tạt": "ca-mu-song.jpg",
             "Cá mú hấp Hong Kong": {
                 "src": "assets/ca-mu-hong-kong.jpg"
             },
-            "Cá mú nướng muối ớt": "",
-            "Lẩu cá mú măng chua": ""
+            "Cá mú nướng muối ớt": "ca-mu-nuong-muoi-ot.webp",
+            "Lẩu cá mú măng chua": {
+                "src": "assets/hotpot.jpg"
+            }
         },
         "muc-trung": {
-            "Mực trứng hấp sả": "",
-            "Mực trứng chiên nước mắm": ""
+            "Mực trứng hấp sả": "muc-trung-hap-sa.jpg",
+            "Mực trứng chiên nước mắm": "muc-trung-chien-nuoc-mam.jpg"
         },
         "rang-muc": {
-            "Răng mực xào bơ tỏi": "",
-            "Răng mực chiên nước mắm": ""
+            "Răng mực xào bơ tỏi": "rang-muc-xao-bo-toi.jpg",
+            "Răng mực chiên nước mắm": "rang-muc-chien-nuoc-mam.jpg"
         },
         "muc-sua": {
-            "Mực sữa chiên nước mắm": "",
-            "Mực sữa hấp gừng": "",
-            "Mực sữa chiên bột": ""
+            "Mực sữa chiên nước mắm": "muc-sua-chien-mam.jpg",
+            "Mực sữa hấp gừng": "muc-sua-hap-gung.jpg",
+            "Mực sữa chiên bột": "muc-sua-chien-bot.jpg"
         },
         "bia": {
-            "Tiger nâu": "",
-            "Tiger bạc": "",
-            "Tiger bạc (nhỏ)": "",
-            "Heineken bạc": "",
-            "Heineken bạc (nhỏ)": "",
-            "Sài Gòn Special": "",
-            "Sài Gòn Lager": ""
+            "Tiger nâu": "tiger-nau.png",
+            "Tiger bạc": "tiger-bac.jpg",
+            "Tiger bạc (nhỏ)": "tiger-bac.jpg",
+            "Heineken bạc": "Heineken-bac-nho.jpg",
+            "Heineken bạc (nhỏ)": "Heineken-bac-nho.jpg",
+            "Sài Gòn Special": "sai-gon-special.jpg",
+            "Sài Gòn Lager": "saigon-lager.jpg"
         },
         "nuoc-ngot": {
-            "Coca Cola": "",
-            "Pepsi": "",
-            "7 Up": "",
-            "Sting dâu": "",
-            "Mirinda cam/xá xị": "",
-            "Nước suối": ""
+            "Coca Cola": "cocacola.webp",
+            "Pepsi": "pepsi.webp",
+            "7 Up": "7up.webp",
+            "Sting dâu": "sting.jpg",
+            "Mirinda cam/xá xị": "mirinda.jpg",
+            "Nước suối": "nuoc-suoi.jpg"
         },
         "ruou": {
-            "Soju": "",
-            "Vodka Men nhỏ": "",
-            "Vodka Men lớn": "",
-            "Rượu nếp mới": ""
+            "Soju": "soju.webp",
+            "Vodka Men nhỏ": "vodka-men-nho.jpg",
+            "Vodka Men lớn": "vodka-men-nho.jpg",
+            "Rượu nếp mới": "ruou-nep-moi.jpg",
         },
         "nhum": {
             "Nhum nướng mỡ hành": "nhum-nuong-mo-hanh.jpg",
@@ -168,49 +168,48 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Sò điệp nướng trứng": "so-diep-nuong-trung.webp",
         },
         "so-huyet": {
-            "Sò huyết rang me": "",
-            "Sò huyết cháy tỏi": "",
-            "Sò huyết lascot": "",
+            "Sò huyết rang me": "so-huyet-rang-me.jpg",
+            "Sò huyết cháy tỏi": "so-huyet-chay-toi.jpg",
+            "Sò huyết lascot": "so_huyet_lacoste.jpg",
             "Sò huyết nướng mọi": ""
         },
         "so-lua": {
-            "Sò lụa hấp sả": "",
-            "Sò lụa hấp Thái": "",
-            "Sò lụa xào bơ tỏi": "",
-            "Sò lụa xào mỡ hành": "",
-            "Sò lụa xào lá quế": "",
-            "Sò lụa xào me": ""
+            "Sò lụa hấp sả": "so-lua-hap-xa.jpg",
+            "Sò lụa hấp Thái": "so-lua-hap-thai.jpg",
+            "Sò lụa xào bơ tỏi": "so-lua-xao-bo-toi.jpg",
+            "Sò lụa xào mỡ hành": "so-lua-xao-mo-hanh.png",
+            "Sò lụa xào lá quế": "so_lua_xao_la_que.webp",
+            "Sò lụa xào me": "so-lua-xao-me.jpg"
         },
         "so-duong": {
-            "Sò dương nướng mỡ hành": "",
-            "Sò dương nướng phô mai": "",
+            "Sò dương nướng mỡ hành": "so-duong-nuong-mo-hanh.jpg",
+            "Sò dương nướng phô mai": "so-duong-nuong-pho-mai.jpg",
             "Sò dương sốt hoàng kim": "",
-            "Sò dương nướng muối ớt": "",
-            "Sò dương nướng tiêu": ""
+            "Sò dương nướng muối ớt": "so-duong-nuong-muoi-ot.jpg",
+            "Sò dương nướng tiêu": "so-duong-nuong-tieu.jpg"
         },
         "oc-len": {
-            "Ốc len xào dừa": ""
+            "Ốc len xào dừa": "oc-len-xao-dua.jpg",
         },
         "so-long": {
-            "Sò lông nướng mỡ hành": {
-                "src": "assets/about-cuisine-2.jpg",
-                "position": "75% 50%"
-            },
-            "Sò lông nướng muối ớt": ""
+            "Sò lông nướng mỡ hành": "so-long-nuong-mo-hanh.jpg",
+            "Sò lông nướng muối ớt": "so-long-nuong-muoi-ot.png"
         },
         "oc-toi": {
-            "Ốc tỏi nướng mỡ hành": "",
-            "Ốc tỏi nướng phô mai": "",
+            "Ốc tỏi nướng mỡ hành": {
+                "src": "assets/oc_nuong.jpg"
+            },
+            "Ốc tỏi nướng phô mai": "oc-toi-nuong-pho-mai.jpg",
             "Ốc tỏi sốt hoàng kim": "",
-            "Ốc tỏi nướng muối ớt": "",
-            "Ốc tỏi nướng tiêu": ""
+            "Ốc tỏi nướng muối ớt": "oc-toi-nuong-muoi-ot.webp",
+            "Ốc tỏi nướng tiêu": "oc-toi-nuong-tieu.jpg"
         },
         "tom-su": {
-            "Tôm sú hấp sả": "",
-            "Tôm sú cháy tỏi": "",
-            "Tôm sú rang me": "",
-            "Tôm sú nướng muối ớt": "",
-            "Tôm sú nướng mọi": "",
+            "Tôm sú hấp sả": "tom-su-hap-sa.jpg",
+            "Tôm sú cháy tỏi": "tom-su-chay-toi.jpg",
+            "Tôm sú rang me": "tom-su-rang-me.jpg",
+            "Tôm sú nướng muối ớt": "tom-su-nuong.webp",
+            "Tôm sú nướng mọi": "tom-su-nuong.webp",
             "Tôm sú phần": ""
         },
         "mon-ga": {
@@ -220,85 +219,83 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Sụn gà xào sả ớt": ""
         },
         "bao-ngu": {
-            "Bào ngư nướng mỡ hành": "",
-            "Bào ngư nướng muối ớt": "",
-            "Bào ngư súp": "",
-            "Bào ngư xào dầu hào": ""
+            "Bào ngư nướng mỡ hành": "bao-ngu-nuong-mo-hanh.png",
+            "Bào ngư nướng muối ớt": "bao-ngu-nuong-muoi-ot.png",
+            "Bào ngư súp": "bao-ngu-sup.jpg",
+            "Bào ngư xào dầu hào": "bao-ngu-xao-dau-hao.png"
         },
         "oc-huong": {
-            "Ốc hương hấp": "",
+            "Ốc hương hấp": "oc-huong-hap.jpg",
             "Ốc hương nướng mọi": "",
-            "Ốc hương cháy tỏi": "",
-            "Ốc hương rang me": "",
-            "Ốc hương rang muối": "",
-            "Ốc hương sốt hoàng kim": "",
-            "Ốc hương xào bơ cay": ""
+            "Ốc hương cháy tỏi": "oc-huong-chay-toi.jpg",
+            "Ốc hương rang me": "oc-huong-rang-me.jpg",
+            "Ốc hương rang muối": "oc-huong-rang-muoi.jpg",
+            "Ốc hương sốt hoàng kim": "oc-huong-sot-hoang-kim.jpg",
+            "Ốc hương xào bơ cay": "oc-huong-xao-bo-cay.webp"
         },
         "oc-ca-na": {
-            "Ốc cà na hấp": "",
-            "Ốc cà na cháy tỏi": "",
-            "Ốc cà na rang me": "",
-            "Ốc cà na rang muối": "",
-            "Ốc cà na sốt hoàng kim": "",
-            "Ốc cà na xào bơ cay": ""
+            "Ốc cà na hấp": "oc-ca-na-hap.jpg",
+            "Ốc cà na cháy tỏi": "oc-ca-na-chay-toi.jpg",
+            "Ốc cà na rang me": "oc-ca-na-rang-me.jpg",
+            "Ốc cà na rang muối": "oc-ca-na-rang-muoi.jpg",
+            "Ốc cà na sốt hoàng kim": "oc-ca-na-sot-hoang-kim.png",
+            "Ốc cà na xào bơ cay": "oc-ca-na-xao-bo-cay.jpg"
         },
         "chao": {
             "Cháo hào": "",
-            "Cháo tôm": "",
-            "Cháo hải sản": ""
+            "Cháo tôm": "chao-tom.jpg",
+            "Cháo hải sản": "chao-hai-san.jpg"
         },
         "com-chien": {
-            "Cơm chiên cá mặn": "",
+            "Cơm chiên cá mặn": "com-chien-ca-man.jpg",
             "Cơm chiên hải sản": "",
-            "Cơm chiên tỏi": "",
-            "Cơm chiên dương châu": "",
-            "Cơm chiên thịt cua": ""
+            "Cơm chiên tỏi": "com-chien-ca-man.jpg",
+            "Cơm chiên dương châu": "com-chien-duong-chau.jpg",
+            "Cơm chiên thịt cua": "com-chien-thit-cua.webp"
         },
         "rau-cu": {
-            "Canh cải nghêu": "",
+            "Canh cải nghêu": "canh-cai-ngheu.jpg",
             "Rau luộc thập cẩm": "",
-            "Bầu luộc": "",
-            "Đậu bắp (luộc/nướng)": "",
-            "Cải thìa xào tỏi": "",
-            "Cà tím (nướng/xào)": "",
-            "Khổ qua chà bông": "",
-            "Khổ qua xào trứng": "",
-            "Rau muống (luộc/xào tỏi)": "",
-            "Canh bầu nấu tôm": ""
+            "Bầu luộc": "bau-luoc.jpg",
+            "Đậu bắp (luộc/nướng)": "dau-bap-nuong.jpg",
+            "Cải thìa xào tỏi": "cai-thia-xao-toi.webp",
+            "Cà tím (nướng/xào)": "ca-tim-nuong.jpg",
+            "Khổ qua chà bông": "kho-qua-cha-bong.webp",
+            "Khổ qua xào trứng": "kho-qua-xao-trung.jpg",
+            "Rau muống (luộc/xào tỏi)": "rau-muong-xao-toi.jpg",
+            "Canh bầu nấu tôm": "canh-bau-nau-tom.jpg",
         },
         "goi": {
-            "Gỏi hải sản": "",
+            "Gỏi hải sản": "goi-hai-san.jpg",
             "Gỏi xoài ốc giác": "",
-            "Gỏi khô mực": ""
+            "Gỏi khô mực": "goi-kho-muc.jpg",
         },
         "dau-hu": {
             "Đậu hủ tẩm hành": "",
-            "Đậu hủ lướt ván": "",
-            "Đậu hủ chiên sả": "",
-            "Đậu hủ chiên giòn": "",
+            "Đậu hủ lướt ván": "dau-hu-luot-van.jpg",
+            "Đậu hủ chiên sả": "dau-hu-chien-sa.jpg",
+            "Đậu hủ chiên giòn": "dau-hu-luot-van.jpg",
             "Đậu hủ tẩm hành chà bông": ""
         },
         "mon-bo": {
             "Bò lúc lắc khoai tây": "",
-            "Bò xào hành cần": "",
-            "Bò xào bông cải": ""
+            "Bò xào hành cần": "bo-xao-hanh-can.jpg",
+            "Bò xào bông cải": "bo-xao-bong-cai.jpg",
         },
         "ghe": {
-            "Ghẹ hấp sả": {
-                "src": "assets/about-cuisine-1.jpg"
-            },
-            "Ghẹ cháy tỏi": "",
-            "Ghẹ rang me": "",
-            "Ghẹ rang muối": "",
+            "Ghẹ hấp sả": "ghe-hap-xa.jpg",
+            "Ghẹ cháy tỏi": "ghe-chay-toi.jpg",
+            "Ghẹ rang me": "ghe-rang-me.jpg",
+            "Ghẹ rang muối": "cua-rang-muoi.jpg",
             "Ghẹ nấu lẩu": ""
         },
         "muc-ong": {
-            "Mực ống nướng sa tế": "",
-            "Mực ống xào chua ngọt": "",
-            "Mực ống xào hành cần": "",
-            "Mực ống xào bông cải": "",
-            "Mực ống chiên bột": "",
-            "Mực ống hấp": ""
+            "Mực ống nướng sa tế": "muc-ong-nuong-sa-te.jpg",
+            "Mực ống xào chua ngọt": "muc-ong-xao-chua-ngot.jpg",
+            "Mực ống xào hành cần": "muc-ong-xao-hanh-can.jpg",
+            "Mực ống xào bông cải": "muc-ong-xao-bong-cai.jpg",
+            "Mực ống chiên bột": "muc-ong-chien-bot.jpg",
+            "Mực ống hấp": "muc-ông-hap.jpeg"
         },
         "bach-tuoc": {
             "Bạch tuộc nướng sa tế": {
@@ -310,22 +307,22 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Bạch tuộc hấp": "bach-tuoc-hap.webp"
         },
         "tom-tit": {
-            "Tôm tít hấp sả": "",
+            "Tôm tít hấp sả": "tom-tit-hap-xa.jpg",
             "Tôm tít cháy tỏi": "tom-tit-chay-toi.jpg",
             "Tôm tít rang muối ớt": "tom-tit-rang-muoi.jpg",
-            "Tôm tít rang me": "",
-            "Tôm tít phần": ""
+            "Tôm tít rang me": "tom-tit-rang-me.jpg",
+            "Tôm tít phần": "tom-tit-phan.jpg"
         },
         "tom-mu-ni": {
-            "Tôm mũ ni hấp sả": "",
-            "Tôm mũ ni cháy tỏi": "",
-            "Tôm mũ ni nướng mỡ hành": "",
-            "Tôm mũ ni nướng phô mai": ""
+            "Tôm mũ ni hấp sả": "tom-mu-ni-hap-xa.jpg",
+            "Tôm mũ ni cháy tỏi": "tom-mu-ni-chay-toi.jpg",
+            "Tôm mũ ni nướng mỡ hành": "tom-mu-ni-nuong-mo-hanh.jpg",
+            "Tôm mũ ni nướng phô mai": "tom-mu-ni-nuong-pho-mai.jpg",
         },
         "tom-hum": {
-            "Tôm hùm hấp sả": "",
-            "Tôm hùm cháy tỏi": "",
-            "Tôm hùm nướng mỡ hành": "",
+            "Tôm hùm hấp sả": "tom-hum-hap-sa.jpg",
+            "Tôm hùm cháy tỏi": "tom-hum-chay-toi.jpg",
+            "Tôm hùm nướng mỡ hành": "tom-hum-nuong-mo-hanh.jpg",
             "Tôm hùm nướng phô mai": {
                 "src": "assets/hero_cover.jpg",
                 "position": "50% 70%"

@@ -90,7 +90,7 @@ window.CAYSI_I18N = {
 
         // Home / Hải sản tươi sống
         liveLabel: "HẢI SẢN TƯƠI SỐNG TẠI BỂ",
-        liveTitle: "Tận tay chọn hải sản.\nTrọn vẹn vị tươi ngon.",
+        liveTitle: "Tận tay chọn hải sản.",
         liveText: "Một trong những trải nghiệm thú vị tại Cây Si là được quan sát và tự tay lựa chọn hải sản tươi sống đang bơi tại bể, rồi yêu cầu chế biến theo khẩu vị.",
         liveStep1: "01 / Chọn hải sản tại bể",
         liveStep2: "02 / Chế biến theo yêu cầu",
@@ -117,7 +117,7 @@ window.CAYSI_I18N = {
         // Home / Đặt bàn và liên hệ
         locationLabel: "06 / GHÉ CÂY SI",
         locationTitle: "Cây Si cách tháp Tam Thắng 300m",
-        locationText: "Từ Tháp Tam Thắng, ghé Cây Si tại số 4 Lê Hồng Phong Nối Dài. Hai điểm hẹn gần nhau, cho một buổi dạo biển và thưởng thức hải sản.",
+        locationText: "Chỉ cách Tháp Tam Thắng 300m, Hải sản Cây Si chào đón bạn tại số 4 Lê Hồng Phong Nối Dài, Vũng Tàu.",
         locationFallback: "Xem vị trí Cây Si trên Google Maps ↗",
         contactLabel: "HẸN NHAU Ở CÂY SI",
         contactTitle: "Một bàn ăn,\nngàn chuyện vui.",
@@ -179,21 +179,21 @@ window.CAYSI_I18N = {
 
         // About / Cam kết
         promiseLabel: "CAM KẾT TỪ CÂY SI",
-        promiseTitle: "Chất lượng bắt đầu\ntừ sự tươi ngon.",
+        promiseTitle: "Chất lượng bắt đầu từ sự tươi ngon.",
         promiseP1: "Chúng tôi tin rằng nguyên liệu tốt chính là nền tảng của một món ăn ngon.",
         promiseP2: "Vì vậy, Cây Si Quán chú trọng lựa chọn nguồn hải sản từ những nhà cung cấp uy tín tại Vũng Tàu, ưu tiên độ tươi ngon và chất lượng của từng nguyên liệu.",
         promiseP3: "Từ khâu lựa chọn hải sản đến chế biến và phục vụ, chúng tôi luôn hướng đến một mục tiêu: mang đến những bữa ăn ngon miệng, chỉn chu và xứng đáng với sự tin yêu của thực khách.",
 
         // About / Không gian
         atmosphereLabel: "KHÔNG GIAN GẮN KẾT",
-        atmosphereTitle: "Món ngon thêm trọn vị\nkhi được sẻ chia.",
+        atmosphereTitle: "Món ngon thêm trọn vị khi được sẻ chia.",
         atmosphereP1: "Có những bữa ăn ngon nhất không phải vì món ăn cầu kỳ, mà vì có đúng những người mình yêu quý ngồi bên cạnh.",
         atmosphereP2: "Với không gian rộng rãi, thoáng mát và không khí gần gũi, Cây Si Quán là nơi thích hợp cho những bữa cơm gia đình, những buổi họp mặt bạn bè hay các đoàn khách cùng nhau khám phá ẩm thực Vũng Tàu.",
         atmosphereP3: "Dù là một bữa ăn giản dị hay một dịp đặc biệt, Cây Si luôn mong muốn trở thành nơi lưu giữ những tiếng cười và khoảnh khắc đáng nhớ.",
 
         // About / Các dịp gặp gỡ
         occasionsLabel: "MỖI CUỘC GẶP GỠ ĐỀU ĐÁNG GIÁ",
-        occasionsTitle: "Không chỉ là một bữa ăn.\nĐó là dịp để bên nhau.",
+        occasionsTitle: "Không chỉ là một bữa ăn, đó là dịp để bên nhau.",
         occasions1: "Tiệc gia đình & kỷ niệm",
         occasions1P: "Từ sinh nhật, liên hoan đến những buổi sum họp thân mật, Cây Si mang đến không gian ẩm thực gần gũi cho những dịp đáng nhớ.",
         occasions2: "Cơm khách đoàn",
@@ -339,7 +339,7 @@ window.CAYSI_I18N = {
 
         // Home / Hải sản tươi sống
         liveLabel: "LIVE SEAFOOD EXPERIENCE",
-        liveTitle: "Choose it live.\nEnjoy it fresh.",
+        liveTitle: "Choose it live.",
         liveText: "See the seafood swimming in our tanks and select what you would like, then choose how it is prepared.",
         liveStep1: "01 / Choose seafood from the tanks",
         liveStep2: "02 / Prepared to your liking",
@@ -366,7 +366,7 @@ window.CAYSI_I18N = {
         // Home / Đặt bàn và liên hệ
         locationLabel: "06 / FIND CÂY SI",
         locationTitle: "Cây Si is 300m from Tam Thang Tower",
-        locationText: "From Tam Thang Tower, visit Cây Si at 4 Le Hong Phong Extension. Two nearby stops for a seaside stroll and a seafood meal.",
+        locationText: "Just 300m from Tam Thang Tower, Cây Si Seafood Restaurant welcomes you at No. 4 Lê Hồng Phong Extended Street, Vũng Tàu.",
         locationFallback: "View Cây Si on Google Maps ↗",
         contactLabel: "SEE YOU AT CÂY SI",
         contactTitle: "One table.\nA thousand stories.",
@@ -428,21 +428,21 @@ window.CAYSI_I18N = {
 
         // About / Cam kết
         promiseLabel: "OUR PROMISE",
-        promiseTitle: "Great Seafood Starts\nwith Fresh Ingredients.",
+        promiseTitle: "Great Seafood Starts with Fresh Ingredients.",
         promiseP1: "We believe that the quality of a great meal begins long before it reaches the table.",
         promiseP2: "That's why we prioritize fresh seafood sourced from trusted suppliers in Vũng Tàu, with careful attention to the quality of our ingredients.",
         promiseP3: "From seafood selection to preparation and service, our commitment is simple: to create delicious, thoughtfully prepared meals that our guests can enjoy with confidence.",
 
         // About / Không gian
         atmosphereLabel: "A PLACE TO COME TOGETHER",
-        atmosphereTitle: "Good Food Tastes\nEven Better Together.",
+        atmosphereTitle: "Good Food Tastes Even Better Together.",
         atmosphereP1: "Some of the best meals aren't the most elaborate ones. They're the ones shared with the people who matter most.",
         atmosphereP2: "With its spacious, airy, and welcoming atmosphere, Cây Si is a natural gathering place for family meals, reunions with friends, and group dining experiences in Vũng Tàu.",
         atmosphereP3: "Whether it’s a casual seafood lunch or a special celebration, we hope every visit becomes a memory worth keeping.",
 
         // About / Các dịp gặp gỡ
         occasionsLabel: "EVERY GATHERING MATTERS",
-        occasionsTitle: "More Than a Meal.\nA Reason to Gather.",
+        occasionsTitle: "More Than a Meal — It’s a Chance to Connect.",
         occasions1: "Family Celebrations & Special Occasions",
         occasions1P: "From birthdays and anniversaries to warm family reunions, enjoy meaningful moments together over fresh seafood.",
         occasions2: "Tour Groups & Group Dining",
