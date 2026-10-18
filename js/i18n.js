@@ -43,8 +43,7 @@ window.CAYSI_I18N = {
         skip: "Bỏ qua tới nội dung",
         backTop: "Lên đầu trang",
         close: "Đóng",
-        galleryAlt: "Hình minh họa hải sản",
-        heroAlt: "Cua hoàng đế trên đĩa inox, hình ảnh minh họa",
+        heroAlt: "Tôm hùm nướng phô mai được bày trên đĩa tại quầy bếp",
 
         // Home / Hero
         heroEyebrow: "VŨNG TÀU · VIỆT NAM  /  HẢI SẢN TƯƠI SỐNG",
@@ -57,7 +56,7 @@ window.CAYSI_I18N = {
 
         // Home / Giới thiệu
         introLabel: "01 / CÂU CHUYỆN CÂY SI",
-        introTitle: "Mộc mạc vị biển.\nẤm áp tình thân.",
+        introTitle: "Mộc mạc vị biển, ấm áp tình thân.",
         introP1: "Ở Cây Si Quán, hải sản Vũng Tàu được biến tấu thành những món ăn thân thuộc — từ hàu nướng mỡ hành, cá nướng muối ớt đến lẩu cá đuối măng chua nóng hổi.",
         introP2: "Một bữa cơm gia đình, cuộc hẹn bạn bè hay buổi gặp mặt đông vui — chúng tôi luôn mong bạn có một nơi để thưởng thức hương vị biển theo cách thoải mái nhất.",
         introTag: "Một điểm hẹn cho những cuộc vui bên biển.",
@@ -173,7 +172,7 @@ window.CAYSI_I18N = {
 
         // About / Ẩm thực
         cuisineLabel: "HƯƠNG VỊ CỦA BIỂN",
-        cuisineTitle: "Hải sản tươi là khởi đầu.\nHương vị là điều đọng lại.",
+        cuisineTitle: "Hương vị là điều cuối cùng đọng lại trong tâm trí.",
         cuisineP1: "Tại Cây Si, mỗi loại hải sản đều có nét ngon riêng, và cách chế biến chính là điều giúp hương vị ấy trở nên trọn vẹn.",
         cuisineP2: "Bạn có thể chọn một đĩa hàu nướng mỡ hành thơm lừng, mực chiên nước mắm đậm vị, cá hấp Hong Kong thanh ngọt hay một nồi lẩu hải sản nóng hổi để cùng nhau thưởng thức. Từ món ăn quen thuộc đến những lựa chọn đặc sắc, thực đơn Cây Si mang đến sự đa dạng để mỗi thực khách đều có thể tìm thấy hương vị yêu thích của mình.",
 
@@ -216,7 +215,8 @@ window.CAYSI_I18N = {
         menuIndividualPrices: "Giá theo món",
         menuViewDishes: "Xem danh sách món",
         menuBackToCollection: "Quay lại danh sách",
-        menuImageAlt: "Ảnh minh họa nhóm",
+        menuImageAlt: "Ảnh minh họa nhóm món",
+        menuGenericImageAlt: "Khay hải sản gồm tôm, hàu và các loại ốc",
         menuAvailable: "Các cách chế biến",
         menuGroupPricing: "Các cách chế biến trong nhóm áp dụng cùng mức giá, trừ khi có ghi giá riêng.",
         menuCategoryAria: "Lọc thực đơn theo nhóm món",
@@ -231,15 +231,6 @@ window.CAYSI_I18N = {
         spaceMoment3: "Tiệc liên hoan, gặp gỡ",
         spaceMoment4: "Hương vị hải sản Vũng Tàu",
         spaceSeeReal: "Xem hình ảnh trên Facebook",
-        sceneCaption1: "Bữa tiệc vị biển",
-        sceneCaption2: "Tinh hoa từ biển",
-        sceneCaption3: "Quây quần bên nồi lẩu",
-        sceneCaption4: "Thơm lừng vị nướng",
-        sceneCaption5: "Một chút vị biển",
-        sceneCaption6: "Đậm đà từng khoảnh khắc",
-        sceneCaption7: "Tươi ngon mỗi ngày",
-        sceneCaption8: "Câu chuyện bên bàn ăn",
-        sceneCaption9: "Trọn vẹn bữa sum vầy",
 
         // Services / Dịch vụ
         servicesSetMenu: "Tham khảo set menu",
@@ -292,8 +283,7 @@ window.CAYSI_I18N = {
         skip: "Skip to content",
         backTop: "Back to top",
         close: "Close",
-        galleryAlt: "Illustrative seafood photography",
-        heroAlt: "King crab on a platter; illustrative photography",
+        heroAlt: "Grilled lobster halves topped with cheese on plates at the kitchen counter",
 
         // Home / Hero
         heroEyebrow: "VŨNG TÀU · VIETNAM  /  FRESH SEAFOOD",
@@ -306,7 +296,7 @@ window.CAYSI_I18N = {
 
         // Home / Giới thiệu
         introLabel: "01 / THE CÂY SI STORY",
-        introTitle: "Coastal flavors.\nHeartfelt moments.",
+        introTitle: "Coastal flavors, heartfelt moments.",
         introP1: "At Cây Si, Vũng Tàu seafood comes to life in comforting classics — from scallion-oil grilled oysters and chili-salt fish to steaming hot pots.",
         introP2: "A family meal, an evening with friends, or a cheerful group gathering — we believe great seafood should be enjoyed in good company, without fuss.",
         introTag: "A place to gather by the sea.",
@@ -422,7 +412,7 @@ window.CAYSI_I18N = {
 
         // About / Ẩm thực
         cuisineLabel: "FLAVORS OF THE COAST",
-        cuisineTitle: "Freshness Is Our Foundation.\nFlavor Is What You'll Remember.",
+        cuisineTitle: "The flavors that linger in your memory.",
         cuisineP1: "At Cây Si, every type of seafood has its own character, and every cooking method brings out something special.",
         cuisineP2: "Enjoy the irresistible aroma of grilled oysters with scallion oil, the savory richness of squid tossed in fish sauce, the delicate sweetness of Hong Kong-style steamed fish, or a bubbling seafood hot pot shared with family and friends. From comforting Vietnamese favorites to more adventurous seafood choices, our diverse menu has something to satisfy every appetite.",
 
@@ -466,6 +456,7 @@ window.CAYSI_I18N = {
         menuViewDishes: "View dishes",
         menuBackToCollection: "Back to menu",
         menuImageAlt: "Illustrative photo for",
+        menuGenericImageAlt: "Seafood platter with prawns, oysters and sea snails",
         menuAvailable: "Cooking options",
         menuGroupPricing: "All cooking options share the group price unless a separate price is listed.",
         menuCategoryAria: "Filter the menu by category",
@@ -480,15 +471,6 @@ window.CAYSI_I18N = {
         spaceMoment3: "Celebrations & gatherings",
         spaceMoment4: "A taste of coastal Vũng Tàu",
         spaceSeeReal: "View photos on Facebook",
-        sceneCaption1: "A coastal feast",
-        sceneCaption2: "Treasures of the sea",
-        sceneCaption3: "Gather around the hot pot",
-        sceneCaption4: "Fresh from the grill",
-        sceneCaption5: "A taste of the ocean",
-        sceneCaption6: "Savor every moment",
-        sceneCaption7: "Fresh every day",
-        sceneCaption8: "Stories around the table",
-        sceneCaption9: "A feast to share",
 
         // Services / Dịch vụ
         servicesSetMenu: "View set menus",

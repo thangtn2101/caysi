@@ -88,7 +88,7 @@ section('nuoc-ngot','drinks','Nước ngọt','Soft drinks',null,[
 section('ruou','drinks','Rượu (chai)','Alcoholic beverages (bottles)',null,[
  dish('Soju','Soju',money(120000,'chai','bottle')),dish('Vodka Men nhỏ','Vodka Men (small)',money(80000,'chai','bottle')),dish('Vodka Men lớn','Vodka Men (large)',money(140000,'chai','bottle')),dish('Rượu nếp mới','Vietnamese rice liquor',money(120000,'chai','bottle'))]),
 section('chao','rice','Món cháo','Congee',money(89000,'tô','bowl'),[
- dish('Cháo hào','Oyster congee'),dish('Cháo tôm','Shrimp congee'),dish('Cháo hải sản','Seafood congee')]),
+ dish('Cháo hàu','Oyster congee'),dish('Cháo tôm','Shrimp congee'),dish('Cháo hải sản','Seafood congee')]),
 section('com-chien','rice','Cơm chiên','Fried rice',money(99000,'phần','serving'),[
  dish('Cơm chiên cá mặn','Fried rice with salted fish'),dish('Cơm chiên hải sản','Seafood fried rice'),dish('Cơm chiên tỏi','Garlic fried rice',money(69000,'đĩa','plate')),dish('Cơm chiên dương châu','Yangzhou-style fried rice'),dish('Cơm chiên thịt cua','Crab fried rice')]),
 section('rau-cu','vegetables','Món rau củ','Vegetables',null,[

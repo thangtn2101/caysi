@@ -79,19 +79,26 @@
         const file = typeof config.file === 'string' ? config.file.trim() : '';
         const basePath = (dishImages.basePath || 'assets/dishes-img/').replace(/\/?$/, '/');
         const src = file ? basePath + file : (typeof config.src === 'string' ? config.src.trim() : '');
-        return src ? { src, position: config.position } : null;
+        return src ? { ...config, src } : null;
+    }
+    const genericMenuImageSource = 'assets/menu-images/menu_hero.jpg';
+    function menuImageDescription(picture, fallback) {
+        return picture[lang === 'en' ? 'altEn' : 'altVi'] ||
+            (picture.src === genericMenuImageSource ? word('menuGenericImageAlt') : fallback);
     }
     function menuImage(group, item) {
-        const groupPicture = menuImages.sections[group.id] || { src: 'assets/menu-images/menu_hero.jpg' };
+        const groupPicture = menuImages.sections[group.id] || { src: genericMenuImageSource };
         const legacyPicture = item && menuImages.dishes?.[`${group.id}:${item.itemIndex}`];
         const configured = item && configuredDishImage(group, item);
         const picture = configured || legacyPicture || groupPicture;
         const source = escapeHtml(siteBase + picture.src);
         const position = picture.position ? ` style="object-position:${escapeHtml(picture.position)}"` : '';
-        const fallback = configured ? ` data-fallback-src="${escapeHtml(siteBase + (legacyPicture || groupPicture).src)}" data-fallback-position="${escapeHtml((legacyPicture || groupPicture).position || '50% 50%')}"` : '';
-        const alt = item ? `${word('menuImageAlt')} ${group[lang]}` : '';
-        const viewerAlt = item ? `${group[lang]} — ${item[lang]}` : group[lang];
-        return `<img src="${source}" alt="${escapeHtml(alt)}" data-viewer-alt="${escapeHtml(viewerAlt)}" width="${item ? 640 : 352}" height="${item ? 480 : 374}" loading="lazy" decoding="async"${fallback}${position}>`;
+        const groupAlt = menuImageDescription(groupPicture, `${word('menuImageAlt')} ${group[lang]}`);
+        const fallbackPicture = legacyPicture || groupPicture;
+        const fallbackAlt = menuImageDescription(fallbackPicture, legacyPicture ? item[lang] : groupAlt);
+        const fallback = configured ? ` data-fallback-src="${escapeHtml(siteBase + fallbackPicture.src)}" data-fallback-position="${escapeHtml(fallbackPicture.position || '50% 50%')}" data-fallback-alt="${escapeHtml(fallbackAlt)}"` : '';
+        const alt = menuImageDescription(picture, configured || legacyPicture ? item[lang] : groupAlt);
+        return `<img src="${source}" alt="${escapeHtml(alt)}" data-viewer-alt="${escapeHtml(alt)}" width="${item ? 640 : 352}" height="${item ? 480 : 374}" loading="lazy" decoding="async"${fallback}${position}>`;
     }
     function menuCardPrice(price) {
         if (!price) return `<span class="menu-section-price"><span>${escapeHtml(word('menuIndividualPrices'))}</span></span>`;
@@ -221,12 +228,15 @@
         collection?.addEventListener('error', event => {
             const img = event.target;
             if (img.tagName !== 'IMG' || img.dataset.fallback === 'generic') return;
-            const generic = siteBase + 'assets/menu-images/menu_hero.jpg';
+            const generic = siteBase + genericMenuImageSource;
             const groupFallback = !img.dataset.fallback && img.dataset.fallbackSrc;
             const source = groupFallback && groupFallback !== img.getAttribute('src') ? groupFallback : generic;
             img.dataset.fallback = source === generic ? 'generic' : 'group';
             img.style.objectPosition = source === generic ? '50% 50%' : img.dataset.fallbackPosition;
+            img.alt = source === generic ? word('menuGenericImageAlt') : img.dataset.fallbackAlt;
+            img.dataset.viewerAlt = img.alt;
             if (img.getAttribute('src') !== source) img.src = source;
+            imageViewer?.syncImage(img);
         }, true);
         const search = $('#menu-search'); if (search) search.addEventListener('input', e => {
             query = normalize(e.target.value);
@@ -314,6 +324,12 @@
         viewer.addEventListener('close', restoreScroll);
         imageViewer = {
             refresh: bindImages,
+            syncImage(img) {
+                if (!viewer.open || !opener?.parentElement?.contains(img)) return;
+                photo.src = img.src;
+                photo.alt = img.dataset.viewerAlt || img.alt;
+                original.href = img.src;
+            },
             closeWithin(root) { if (viewer.open && root.contains(opener)) closeViewer(); }
         };
         bindImages();

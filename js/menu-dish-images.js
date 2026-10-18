@@ -6,6 +6,7 @@
  * Chuỗi: 'hau-nuong-pho-mai.webp' lấy từ assets/dishes-img/.
  * Cắt ảnh: { file: 'hau-nuong-pho-mai.webp', position: '50% 35%' }.
  * Ảnh ngoài thư mục: { src: 'assets/hau-sua-dai-duong.jpg' }.
+ * Ảnh dùng chung: thêm altVi / altEn để mô tả đúng ảnh thay vì tên món.
  * Tên file phải đúng cả chữ hoa/thường trên máy chủ.
  */
 window.CAYSI_MENU_DISH_IMAGES = {
@@ -28,8 +29,8 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Lẩu hải sản": "lau-hai-san.jpg",
             "Lẩu cá đuối": "",
             "Lẩu cá bớp": "lau-ca-bop.webp",
-            "Lẩu cá chim": { "src": "/assets/menu-images/ca-chim.jpg" },
-            "Lẩu cá mú": { "src": "/assets/menu-images/ca-mu.jpg" },
+            "Lẩu cá chim": { "src": "/assets/menu-images/ca-chim.jpg", "altVi": "Cá chim tươi được cầm trên tay", "altEn": "Fresh pomfret held in a hand" },
+            "Lẩu cá mú": { "src": "/assets/menu-images/ca-mu.jpg", "altVi": "Cá mú", "altEn": "Grouper" },
             "Lẩu Thái": "lau-thai.jpg"
         },
         "hau": {
@@ -117,7 +118,9 @@ window.CAYSI_MENU_DISH_IMAGES = {
             },
             "Cá mú nướng muối ớt": "ca-mu-nuong-muoi-ot.webp",
             "Lẩu cá mú măng chua": {
-                "src": "assets/hotpot.jpg"
+                "src": "assets/hotpot.jpg",
+                "altVi": "Nồi lẩu cá với rau và ớt",
+                "altEn": "Fish hot pot with vegetables and chili"
             }
         },
         "muc-trung": {
@@ -135,10 +138,10 @@ window.CAYSI_MENU_DISH_IMAGES = {
         },
         "bia": {
             "Tiger nâu": "tiger-nau.png",
-            "Tiger bạc": "tiger-bac.jpg",
-            "Tiger bạc (nhỏ)": "tiger-bac.jpg",
-            "Heineken bạc": "Heineken-bac-nho.jpg",
-            "Heineken bạc (nhỏ)": "Heineken-bac-nho.jpg",
+            "Tiger bạc": { "file": "tiger-bac.jpg", "altVi": "Lon bia Tiger Crystal", "altEn": "Can of Tiger Crystal beer" },
+            "Tiger bạc (nhỏ)": { "file": "tiger-bac.jpg", "altVi": "Lon bia Tiger Crystal", "altEn": "Can of Tiger Crystal beer" },
+            "Heineken bạc": { "file": "Heineken-bac-nho.jpg", "altVi": "Lon bia Heineken Silver", "altEn": "Can of Heineken Silver beer" },
+            "Heineken bạc (nhỏ)": { "file": "Heineken-bac-nho.jpg", "altVi": "Lon bia Heineken Silver", "altEn": "Can of Heineken Silver beer" },
             "Sài Gòn Special": "sai-gon-special.jpg",
             "Sài Gòn Lager": "saigon-lager.jpg"
         },
@@ -147,13 +150,13 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Pepsi": "pepsi.webp",
             "7 Up": "7up.webp",
             "Sting dâu": "sting.jpg",
-            "Mirinda cam/xá xị": "mirinda.jpg",
+            "Mirinda cam/xá xị": { "file": "mirinda.jpg", "altVi": "Hai lon Mirinda vị cam và xá xị", "altEn": "Cans of Mirinda orange and sarsi soft drinks" },
             "Nước suối": "nuoc-suoi.jpg"
         },
         "ruou": {
             "Soju": "soju.webp",
-            "Vodka Men nhỏ": "vodka-men-nho.jpg",
-            "Vodka Men lớn": "vodka-men-nho.jpg",
+            "Vodka Men nhỏ": { "file": "vodka-men-nho.jpg", "altVi": "Chai rượu Vodka Men", "altEn": "Bottle of Vodka Men" },
+            "Vodka Men lớn": { "file": "vodka-men-nho.jpg", "altVi": "Chai rượu Vodka Men", "altEn": "Bottle of Vodka Men" },
             "Rượu nếp mới": "ruou-nep-moi.jpg",
         },
         "nhum": {
@@ -208,15 +211,15 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Tôm sú hấp sả": "tom-su-hap-sa.jpg",
             "Tôm sú cháy tỏi": "tom-su-chay-toi.jpg",
             "Tôm sú rang me": "tom-su-rang-me.jpg",
-            "Tôm sú nướng muối ớt": "tom-su-nuong.webp",
-            "Tôm sú nướng mọi": "tom-su-nuong.webp",
+            "Tôm sú nướng muối ớt": { "file": "tom-su-nuong.webp", "altVi": "Tôm sú nướng", "altEn": "Grilled black tiger prawns" },
+            "Tôm sú nướng mọi": { "file": "tom-su-nuong.webp", "altVi": "Tôm sú nướng", "altEn": "Grilled black tiger prawns" },
             "Tôm sú phần": ""
         },
         "mon-ga": {
             "Cánh gà chiên nước mắm": "",
-            "Cánh gà xào sả ớt": "",
-            "Sụn gà chiên nước mắm": "",
-            "Sụn gà xào sả ớt": ""
+            "Cánh gà xào sả ớt": "canh-ga-xa-sa-ot.jpg",
+            "Sụn gà chiên nước mắm": "sun-ga-chien-nuoc-mam.jpg",
+            "Sụn gà xào sả ớt": "sun-ga-xao-sa-ot.jpg"
         },
         "bao-ngu": {
             "Bào ngư nướng mỡ hành": "bao-ngu-nuong-mo-hanh.png",
@@ -242,14 +245,14 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Ốc cà na xào bơ cay": "oc-ca-na-xao-bo-cay.jpg"
         },
         "chao": {
-            "Cháo hào": "",
+            "Cháo hàu": "",
             "Cháo tôm": "chao-tom.jpg",
             "Cháo hải sản": "chao-hai-san.jpg"
         },
         "com-chien": {
             "Cơm chiên cá mặn": "com-chien-ca-man.jpg",
             "Cơm chiên hải sản": "",
-            "Cơm chiên tỏi": "com-chien-ca-man.jpg",
+            "Cơm chiên tỏi": { "file": "com-chien-ca-man.jpg", "altVi": "Cơm chiên cá mặn trong thố", "altEn": "Fried rice with salted fish in a clay pot" },
             "Cơm chiên dương châu": "com-chien-duong-chau.jpg",
             "Cơm chiên thịt cua": "com-chien-thit-cua.webp"
         },
@@ -272,10 +275,10 @@ window.CAYSI_MENU_DISH_IMAGES = {
         },
         "dau-hu": {
             "Đậu hủ tẩm hành": "",
-            "Đậu hủ lướt ván": "dau-hu-luot-van.jpg",
+            "Đậu hủ lướt ván": { "file": "dau-hu-luot-van.jpg", "altVi": "Đậu hủ chiên vàng ăn kèm nước chấm", "altEn": "Golden fried tofu with dipping sauces" },
             "Đậu hủ chiên sả": "dau-hu-chien-sa.jpg",
-            "Đậu hủ chiên giòn": "dau-hu-luot-van.jpg",
-            "Đậu hủ tẩm hành chà bông": ""
+            "Đậu hủ chiên giòn": { "file": "dau-hu-luot-van.jpg", "altVi": "Đậu hủ chiên vàng ăn kèm nước chấm", "altEn": "Golden fried tofu with dipping sauces" },
+            "Đậu hủ tẩm hành chà bông": "dau-hu-tam-hanh-cha-bong.jpg"
         },
         "mon-bo": {
             "Bò lúc lắc khoai tây": "",
@@ -286,7 +289,7 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Ghẹ hấp sả": "ghe-hap-xa.jpg",
             "Ghẹ cháy tỏi": "ghe-chay-toi.jpg",
             "Ghẹ rang me": "ghe-rang-me.jpg",
-            "Ghẹ rang muối": "cua-rang-muoi.jpg",
+            "Ghẹ rang muối": { "file": "cua-rang-muoi.jpg", "altVi": "Cua rang muối trên đĩa", "altEn": "Salted crab on a plate" },
             "Ghẹ nấu lẩu": ""
         },
         "muc-ong": {
@@ -299,7 +302,9 @@ window.CAYSI_MENU_DISH_IMAGES = {
         },
         "bach-tuoc": {
             "Bạch tuộc nướng sa tế": {
-                "src": "assets/bach-tuoc-muoi-ot.jpg"
+                "src": "assets/bach-tuoc-muoi-ot.jpg",
+                "altVi": "Bạch tuộc tẩm gia vị trên đĩa",
+                "altEn": "Seasoned octopus on a plate"
             },
             "Bạch tuộc nướng muối ớt": {
                 "src": "assets/bach-tuoc-muoi-ot.jpg"
