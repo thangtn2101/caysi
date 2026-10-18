@@ -77,12 +77,12 @@ window.CAYSI_MENU_DISH_IMAGES = {
             "Khoai tây chiên": "khoai-tay-chien.webp"
         },
         "hai-san-mot-nang": {
-            "Khô cá chỉ vàng": "",
-            "Khô cá đuối": "",
-            "Khô mực": "",
-            "Khô cá đục": "",
-            "Khô đù 1 nắng (nướng/chiên)": "",
-            "Khô cá thu 1 nắng chiên": ""
+            "Khô cá chỉ vàng": "kho-ca-chi-vang.jpg",
+            "Khô cá đuối": "kho-ca-duoi.jpg",
+            "Khô mực": "kho-muc.jpg",
+            "Khô cá đục": "kho-ca-duc.jpg",
+            "Khô đù 1 nắng (nướng/chiên)": "kho-du-1-nang.jpg",
+            "Khô cá thu 1 nắng chiên": "kho-ca-thu-1-nang.jpg",
         },
         "sup": {
             "Súp hải sản": "",
